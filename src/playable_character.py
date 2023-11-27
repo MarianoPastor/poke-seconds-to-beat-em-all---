@@ -9,6 +9,7 @@ class PlayableCharacter(Character):
         self.jumping = False
         self.gravity = True
         self.power_jump = power_jump
+        self.correction_of_directory_moves_r_l_a_i()
 
     def update(self) -> None:
         keys = pygame.key.get_pressed()
@@ -19,16 +20,28 @@ class PlayableCharacter(Character):
     def movements(self, keys) -> None:
         if keys[pygame.K_LEFT] and self.rect.left >= 0:
             self.rect.left -= self.speed
-            self.movement_image = "left"
-        if keys[pygame.K_RIGHT]and self.rect.right <= WIDTH:
+            if not self.movement_image == self.dictionary_surfaces["left"]:
+                self.movement_image = self.dictionary_surfaces["left"]
+                self.frame = 0
+            if keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
+                self.rect.y -= self.power_jump
+                self.jumping = True
+        elif keys[pygame.K_RIGHT]and self.rect.right <= WIDTH:
             self.rect.right += self.speed
-            self.movement_image = "attack"
-        if keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
+            if not self.movement_image == self.dictionary_surfaces["right"]:
+                self.movement_image = self.dictionary_surfaces["right"]
+                self.frame = 0
+            if keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
+                self.rect.y -= self.power_jump
+                self.jumping = True
+        elif keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
             self.rect.y -= self.power_jump
             self.jumping = True
         else:
             self.gravity = True
-            self.movement_image = "idle"
+            self.movement_image = self.dictionary_surfaces["idle"]
+        self.move_change()
+            
             
 
     def falling(self):
