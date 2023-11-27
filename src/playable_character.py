@@ -1,74 +1,60 @@
-import pygame
+import pygame, playing
 from constants import *
-from utils import *
 from character import Character
 
 class PlayableCharacter(Character):
     def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
         super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y)
-        self.rock = False
-        self.gravity= False
+        self.rocks = {"tunder" : False, "water" : False,"leaf" : False,"fire" : False}
+        self.jumping = False
+        self.gravity = True
         self.power_jump = power_jump
-        
 
-
-
-    def update(self):
+    def update(self) -> None:
         keys = pygame.key.get_pressed()
-        if self.gravity:
-            self.rect.y -= 10
-        elif self.rect.bottom == HEIGHT:
-            self.gravity = False
-        self.keys(keys)
+        self.movements(keys)
+        self.falling()
         self.attack(keys)
-        
 
+    def movements(self, keys) -> None:
+        if keys[pygame.K_LEFT] and self.rect.left >= 0:
+            self.rect.left -= self.speed
+            self.movement_image = "left"
+        if keys[pygame.K_RIGHT]and self.rect.right <= WIDTH:
+            self.rect.right += self.speed
+            self.movement_image = "attack"
+        if keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
+            self.jump()
+        else:
+            self.gravity = True
+            self.movement_image = "idle"
 
+    def jump(self):
+        self.rect.y -= self.power_jump
+        self.jumping = True
+            
 
-    def keys(self,keys):
-        if self.rect.left >= 0 and keys[pygame.K_LEFT] and \
-            not keys[pygame.K_RIGHT] and \
-            not keys[pygame.K_DOWN]:
-            self.rect.left -= self.speed  
-        elif self.rect.right <= WIDTH and \
-            not keys[pygame.K_LEFT]  and \
-            keys[pygame.K_RIGHT] and \
-            not keys[pygame.K_DOWN]:
-            self.rect.left += self.speed
-        elif self.rect.top >= 0 and \
-            keys[pygame.K_UP] and \
-            not keys[pygame.K_DOWN]:
-            self.rect.bottom -= self.power_jump
-        elif self.rect.bottom <= WIDTH and \
-            not keys[pygame.K_UP] and \
-            keys[pygame.K_DOWN]:
-            self.rect.bottom += self.speed
-    
+    def falling(self):
+        if self.jumping:
+            self.gravity = True
+        if self.gravity and self.rect.bottom <= FLOOR_LEVEL:
+            self.rect.bottom += FALL
+        else:
+            self.gravity = False
+            self.jumping = False
 
-
-
-    def attack(self,keys):
-        if self.rock:
+    def attack(self, keys):
+        if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
-                if keys[pygame.K_LEFT]:
+                if self.movement_image == "left":
                     pass
-                if keys[pygame.K_RIGHT]:
-                    pass  
-                generate_sound(SHOOT_SOUND,VOLUME)
-                self.rock = False
-        
-
-
-
-    def gravity_status(self):
-            self.rect.y += 10 if self.gravity else 0
+                if self.movement_image == "right":
+                    pass
+                self.movement_image = "attack"
+                playing.generate_sound(SHOOT_SOUND, VOLUME)
+                self.rocks["tunder"] = False
+                self.rocks["water"] = False
+                self.rocks["leaf"] = False
+                self.rocks["fire"] = False
 
     
-    
-    
-           
-        
-
-
-
-
