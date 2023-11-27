@@ -5,27 +5,18 @@ from constants import *
   
 
 class Playing:
-    def __init__(self,background,music,volume_background,screen) -> None:        
+    def __init__(self) -> None:        
         pygame.init()
-        self.music = music
-        self.volume_background = volume_background
-        self.background = background
+        self.music = LEVEL_SOUND
+        self.volume_background = VOLUME
+        self.background = LEVEL_1
         self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode(screen)
+        self.screen = pygame.display.set_mode(SCREEN_TUPLE)
         pygame.display.set_caption("Poke-Seconds Beat em up!!!.")
         pygame.display.set_icon(pygame.image.load(POKEBALL_IMAGE))
         self.all_sprites = pygame.sprite.Group()
-        self.event_list = pygame.event.get()
         self.player = PlayableCharacter(sprite_groups=[self.all_sprites],image_surface= PlayableCharacter.sticker_dictionary(self,PIKACHU_SPRITES,"left",4,"attack",4,"idle",3),life= LIFE_PLAYER,speed= SPEED_PLAYER,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_PLAYER,center_y=50,center_x=50,power_jump=JUMP_PLAYER)
         self.npc_1_1 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,CHARMANDER_SPRITES,"left",4,"attack",4,"idle",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_1_2 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,SQUIRTLE_SPRITES,"left",4,"attack",4,"idle",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_1_3 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,BULBASAUR_SPRITES,"left",4,"attack",4,"idle",4),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_2_1 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,MOLTRES_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_2_2 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,ZAPDOS_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_2_3 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,ARTICUNO_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_move_1 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,BEEDRIL_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.npc_move_2 = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,SNORLAX_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=300,center_x=300)
-        self.boss = NPC(sprite_groups=[self.all_sprites],image_surface= NPC.sticker_dictionary(self,MEWTWO_SPRITES,"left",3),life= LIFE_BOSS,speed= SPEED_BOSS,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_BOSS,center_y=300,center_x=300)
         self.load_music()
         self.time_now = pygame.time.get_ticks()
         self.time_frames = 200
@@ -78,15 +69,11 @@ class Playing:
     def run_game(self):
         while True:
             self.clock.tick(FPS)
-            self.ticks = pygame.time.get_ticks()
-            self.time_passed =  self.ticks - self.time_now
-            
-            for event in self.event_list:
+            event_list = pygame.event.get()
+            for event in event_list:
                 if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                     self.exit_game()      
 
-            if self.time_passed >= self.time_frames:
-                self.player.change_frame()
             self.draw()
             self.update()
             

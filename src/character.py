@@ -15,7 +15,7 @@ class Character(pygame.sprite.Sprite):
         self.attack_damage = sound_attack
         self.sound_damage = sound_damage
         self.sound_life = sound_life_gain
-        self.correction_of_directory()
+        #self.correction_of_directory()
 
     def damaged(self):
         self.generate_sound(DAMAGE_SOUND,VOLUME)

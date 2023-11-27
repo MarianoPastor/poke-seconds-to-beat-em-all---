@@ -25,14 +25,13 @@ class NPC(Character):
                 self.generate_sound(SHOOT_SOUND,VOLUME)
                 self.rock = False
 
-def left_right_moves(self)->None:
-    #realiza movimientos de izquierda a derecha
-    if self.rect.left <= 0:
-        self.movement_direction = "right"
-    elif  self.rect.right >= WIDTH:
-        self.movement_direction = "left"
+# def left_right_moves(self)->None:
+#     if self.rect.left <= 0:
+#         self.movement_direction = "left"
+#     elif  self.rect.right >= WIDTH:
+#         self.movement_direction = "left"
 
-    if self.movement_direction == "right":
-        self.rect.left += SPEED_ENEMY
-    elif self.movement_direction == "left":
-        self.rect.left -= SPEED_ENEMY
+#     if self.movement_direction == "right":
+#         self.rect.left += SPEED_ENEMY
+#     elif self.movement_direction == "left":
+#         self.rect.left -= SPEED_ENEMY

@@ -24,14 +24,11 @@ class PlayableCharacter(Character):
             self.rect.right += self.speed
             self.movement_image = "attack"
         if keys[pygame.K_UP] and not self.jumping and self.rect.top >= 0:
-            self.jump()
+            self.rect.y -= self.power_jump
+            self.jumping = True
         else:
             self.gravity = True
             self.movement_image = "idle"
-
-    def jump(self):
-        self.rect.y -= self.power_jump
-        self.jumping = True
             
 
     def falling(self):
