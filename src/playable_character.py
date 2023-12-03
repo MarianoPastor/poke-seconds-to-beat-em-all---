@@ -1,23 +1,15 @@
-import pygame, playing
+from typing import Any
+import pygame
 from constants import *
 from character import Character
 
 class PlayableCharacter(Character):
     def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
-        super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y)
+        super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump)
         self.rocks = {"tunder" : False, "water" : False,"leaf" : False,"fire" : False}
-        self.jumping = False
-        self.gravity = True
-        self.power_jump = power_jump
         self.correction_of_directory_moves_r_l_a_i()
 
-    def update(self) -> None:
-        keys = pygame.key.get_pressed()
-        self.movements(keys)
-        self.falling()
-        self.attack(keys)
-
-    def movements(self, keys) -> None:
+    def movements(self,keys) -> None:
         if keys[pygame.K_LEFT] and self.rect.left >= 0:
             self.rect.left -= self.speed
             if not self.movement_image == self.dictionary_surfaces["left"]:
@@ -42,18 +34,8 @@ class PlayableCharacter(Character):
             self.movement_image = self.dictionary_surfaces["idle"]
         self.move_change()
             
-            
 
-    def falling(self):
-        if self.jumping:
-            self.gravity = True
-        if self.gravity and self.rect.bottom <= FLOOR_LEVEL:
-            self.rect.bottom += FALL
-        else:
-            self.gravity = False
-            self.jumping = False
-
-    def attack(self, keys):
+    def attack(self,keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
                 if self.movement_image == "left":
@@ -61,10 +43,17 @@ class PlayableCharacter(Character):
                 if self.movement_image == "right":
                     pass
                 self.movement_image = "attack"
-                playing.generate_sound(SHOOT_SOUND, VOLUME)
+                self.generate_sound(SHOOT_SOUND, VOLUME)
                 self.rocks["tunder"] = False
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
 
+    def draw(self):
+        keys = pygame.key.get_pressed()
+        self.movements(keys)
+        self.attack(keys)
+
+    def update(self) -> None:
+        pygame.display.flip()
     

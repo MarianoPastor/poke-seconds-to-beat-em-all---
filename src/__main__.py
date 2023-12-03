@@ -1,7 +1,7 @@
-from pygame.locals import *
-from constants import *
 import playing
+from constants import *
 
-if "__main__.py":
+if "__main__":
     game = playing.Playing()
-    game.run_game()
+    game.iniciate()
+

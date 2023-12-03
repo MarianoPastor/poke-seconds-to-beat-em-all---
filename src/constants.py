@@ -24,6 +24,7 @@ SPEED_ENEMY = 7
 SIZE_BOSS = (WIDTH / 4, HEIGHT / 4)
 LIFE_BOSS = 2
 SPEED_BOSS = 15
+PLATFORM_SPEED = 2
 
 #colors in RGB
 RED = (255, 0, 0)
@@ -35,10 +36,10 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 #paths
-path = os.getcwd()
-REAL_PATH = os.path.join(path,"assets")
-PATH_IMAGES = os.path.join(REAL_PATH,"images")
-PATH_SOUNDS = os.path.join(REAL_PATH,"sounds")
+comence_path = os.getcwd()
+REAL_PATH_ASSETS = os.path.join(comence_path,"assets")
+PATH_IMAGES = os.path.join(REAL_PATH_ASSETS,"images")
+PATH_SOUNDS = os.path.join(REAL_PATH_ASSETS,"sounds")
 PATH_ICONS_AND_MORE = os.path.join(PATH_IMAGES,"icons_and_more")
 
 #background paths
@@ -49,7 +50,8 @@ LEVEL_3 = os.path.join(BACKGROUNDS,"level_03.jpg")
 INTRO_BK = os.path.join(BACKGROUNDS,"intro_screen.jpg")
 FINISH_GAME_IMAGE = os.path.join(BACKGROUNDS,"finish_game_image.jpg")
 
-
+#scores paths
+SCORES_JSON = os.path.join(comence_path,"src\scores.json")
 
 #sounds paths
 DAMAGE_SOUND = os.path.join(PATH_SOUNDS,"damage_sound.mp3")
