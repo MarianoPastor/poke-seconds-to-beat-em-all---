@@ -32,7 +32,7 @@ class PlayableCharacter(Character):
         else:
             self.gravity = True
             self.movement_image = self.dictionary_surfaces["idle"]
-        self.move_change()
+        
             
 
     def attack(self,keys):
@@ -50,10 +50,15 @@ class PlayableCharacter(Character):
                 self.rocks["fire"] = False
 
     def draw(self):
+        super().draw()
+        print("PLAYER DRAW")
+
+
+    def update(self) -> None:
+        super().update()
+        self.falling()
         keys = pygame.key.get_pressed()
         self.movements(keys)
         self.attack(keys)
-
-    def update(self) -> None:
-        pygame.display.flip()
+        print("PLAYER UPDATE")
     

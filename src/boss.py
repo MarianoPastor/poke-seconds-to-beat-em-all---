@@ -10,6 +10,7 @@ class Boss(Character):
         self.inverse_gravity= False
         self.movement_direction = "idle"
         self.movement = movement
+        self.event_time_invertion = False
         self.correction_of_directory_moves_left_right()
         
 
@@ -18,15 +19,15 @@ class Boss(Character):
         #self.attack(keys)
     
 
-    def attack(self):
-        if self.rock:
-            if keys[pygame.K_SPACE]:
-                if keys[pygame.K_LEFT]:
-                    pass
-                if keys[pygame.K_RIGHT]:
-                    pass  
-                self.generate_sound(SHOOT_SOUND,VOLUME)
-                self.rock = False
+    # def gravity_invertion(self):
+    #     if self.event_time_invertion:
+    #         if keys[pygame.K_SPACE]:
+    #             if keys[pygame.K_LEFT]:
+    #                 pass
+    #             if keys[pygame.K_RIGHT]:
+    #                 pass  
+    #             self.generate_sound(SHOOT_SOUND,VOLUME)
+    #             self.rock = False
 
 
     def left_right_moves(self,bool)->None:

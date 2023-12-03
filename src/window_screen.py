@@ -1,5 +1,7 @@
 import pygame, sys
 from constants import *
+from berrys import Berry
+
 
 class WindowScreen(pygame.sprite.Sprite):
     def __init__(self,sprite_groups,music_path, volume_float, background_path) -> None:
@@ -16,10 +18,11 @@ class WindowScreen(pygame.sprite.Sprite):
         self.enemy_groups = pygame.sprite.Group()
         self.energy_ball_groups = pygame.sprite.Group()
         self.buttons_group = pygame.sprite.Group()
+        self.berry_groups = pygame.sprite.Group()
 
         self.playing = False
         self.load_music()
-
+        
     def exit()->None: 
         try:
             pygame.quit()
@@ -54,21 +57,19 @@ class WindowScreen(pygame.sprite.Sprite):
     
     def update(self):
         self.all_sprites.update()  
-        pygame.display.flip()
+        
     
 
     def run_game(self):
         while self.playing:
-           
-            
+            self.clock.tick(FPS)
             event_list = pygame.event.get()
             for event in event_list:
                 if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                     self.exit()      
 
 
-            self.update()
             self.draw()
-            
+            self.update()
 
             pygame.display.flip()

@@ -1,12 +1,13 @@
 import pygame
 from constants import *
+from random import randint
 
 class Character(pygame.sprite.Sprite):
     def __init__(self,sprite_groups, dictionary_surfaces, life, speed, sound_attack, sound_damage, sound_life_gain, character_size, center_x, center_y, power_jump):
         super().__init__(sprite_groups)
         self.character_size = character_size
-        # self.gravity= True
-        # self.jumping = False
+        self.gravity= True
+        self.jumping = False
         self.power_jump = power_jump
         self.dictionary_surfaces = dictionary_surfaces
         self.movement_image = self.dictionary_surfaces["left"]
@@ -22,15 +23,18 @@ class Character(pygame.sprite.Sprite):
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
         
+    
+    def random_number(self,numero_minimo:int=0,numero_maximo:int=20)->int:
+        return randint(numero_minimo,numero_maximo)
 
-    # def falling(self):
-    #     if self.jumping:
-    #         self.gravity = True
-    #     if self.gravity and self.rect.bottom <= FLOOR_LEVEL:
-    #         self.rect.bottom += FALL
-    #     else:
-    #         self.gravity = False
-    #         self.jumping = False
+    def falling(self):
+        if self.jumping:
+            self.gravity = True
+        if self.gravity and self.rect.bottom <= FLOOR_LEVEL:
+            self.rect.bottom += FALL
+        else:
+            self.gravity = False
+            self.jumping = False
         
     def move_change(self):
         time_now = pygame.time.get_ticks()
@@ -101,6 +105,13 @@ class Character(pygame.sprite.Sprite):
             self.dictionary_surfaces["right"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
             self.dictionary_surfaces["left"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
     
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+        
+    def update(self) -> None:
+        self.move_change()
+        
+
     def collition_verify(self,object)->None:
     #verifica y actua en funcion a colision diccionario_1 y diccionario_2
         return True  if object.mask.overlap_area(self.rect, (self.rect.x - object.rect.x, self.rect.y - object.rect.y)) else False

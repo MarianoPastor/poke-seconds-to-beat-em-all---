@@ -12,10 +12,10 @@ class InitialScreen(WindowScreen):
         super().__init__(sprite_groups,music_path, volume_float, background_path)  
 
 
-        self.start = Button([self.all_sprites,self.buttons_group],"Start ",None,40,YELLOW,BLACK,WIDTH-100,100)
-        self.scores = Button([self.all_sprites,self.buttons_group],"Scores",None,40,YELLOW,BLACK,WIDTH-100,200)
-        self.controls = Button([self.all_sprites,self.buttons_group],"Controls",None,40,YELLOW,BLACK,100,100)
-        self.sound = Button([self.all_sprites,self.buttons_group],"Sounds",None,40,YELLOW,BLACK,100,200)
+        self.start = Button([self.all_sprites,self.buttons_group],"Start ",None,40,YELLOW,BLACK,WIDTH-100,100,screen=self.screen)
+        self.scores = Button([self.all_sprites,self.buttons_group],"Scores",None,40,YELLOW,BLACK,WIDTH-100,200,screen=self.screen)
+        self.controls = Button([self.all_sprites,self.buttons_group],"Controls",None,40,YELLOW,BLACK,100,100,screen=self.screen)
+        self.sound = Button([self.all_sprites,self.buttons_group],"Sounds",None,40,YELLOW,BLACK,100,200,screen=self.screen)
         
      
         

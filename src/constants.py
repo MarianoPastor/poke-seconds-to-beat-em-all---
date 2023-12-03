@@ -10,6 +10,9 @@ SIZE_TEXT = 40
 VOLUME = 1.00
 FLOOR_LEVEL = HEIGHT / 1.2
 TIME_FRAME_CHANGE = 150
+ORDER_MANAGE = "total_time"
+BERRY_SIZE = (40,40)
+TIME_BERRYS = 300
 
 SPEED_PLAYER = 10
 JUMP_PLAYER = HEIGHT / 3
@@ -49,6 +52,8 @@ LEVEL_2 = os.path.join(BACKGROUNDS,"level_02.jpg")
 LEVEL_3 = os.path.join(BACKGROUNDS,"level_03.jpg")
 INTRO_BK = os.path.join(BACKGROUNDS,"intro_screen.jpg")
 FINISH_GAME_IMAGE = os.path.join(BACKGROUNDS,"finish_game_image.jpg")
+CONTROLS_BK = os.path.join(BACKGROUNDS,"controls_bk.jpg")
+
 
 #scores paths
 SCORES_JSON = os.path.join(comence_path,"src\scores.json")

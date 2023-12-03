@@ -4,7 +4,7 @@ from window_screen import WindowScreen
 from buttom import Button
 
 
-class PauseScreen(WindowScreen):
+class Controls(WindowScreen):
     def __init__(self,sprite_groups,music_path, volume_float, background_path) -> None:   
         super().__init__(sprite_groups,music_path, volume_float, background_path)  
 
@@ -14,9 +14,12 @@ class PauseScreen(WindowScreen):
         self.sound = Button([self.all_sprites,self.buttons_group],"Sounds",None,40,YELLOW,None,100,50,screen=self.screen)
         self.controls = Button([self.all_sprites,self.buttons_group],"CONTROLS",None,40,RED,WHITE,WIDTH/2,40,screen=self.screen)
 
-        
-        self.right_explain = Button([self.all_sprites,self.buttons_group],"PAUSE",None,80,BLACK,WHITE,WIDTH/2,HEIGHT/2,screen=self.screen)
-        
+        self.up_explain = Button([self.all_sprites,self.buttons_group],"Key up ==> Jump",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
+        self.left_explain = Button([self.all_sprites,self.buttons_group],"Key left ==> Move left",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-100,screen=self.screen)
+        self.right_explain = Button([self.all_sprites,self.buttons_group],"Key right ==> Move right",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2,screen=self.screen)
+        self.espace_explain = Button([self.all_sprites,self.buttons_group],"Key espace ==> Attack",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+100,screen=self.screen)
+        self.escape_explain = Button([self.all_sprites,self.buttons_group],"Key escape ==> Exit Game",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+200,screen=self.screen)
+
      
         
     def draw(self):
