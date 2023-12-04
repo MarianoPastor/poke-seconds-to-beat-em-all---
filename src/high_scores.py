@@ -1,18 +1,18 @@
-import pygame
+import pygame,playing
 from constants import *
 from window_screen import WindowScreen
 from buttom import Button
 import json
+from volume import Volume
+
 
 
 
 class HighScores(WindowScreen):
     def __init__(self,sprite_groups,music_path, volume_float, background_path,json_path,order_manage) -> None:   
         super().__init__(sprite_groups,music_path, volume_float, background_path)     
-        self.start = Button([self.all_sprites,self.buttons_group],"Start ",None,40,YELLOW,None,WIDTH-100,20,screen=self.screen)
-        self.initial = Button([self.all_sprites,self.buttons_group],"initial screen",None,40,YELLOW,None,100,20,screen=self.screen)
-        self.sound = Button([self.all_sprites,self.buttons_group],"Sounds",None,40,YELLOW,None,100,50,screen=self.screen)
-        self.high_scores = Button([self.all_sprites,self.buttons_group],"HIGH SCORES",None,40,RED,WHITE,WIDTH/2,40,screen=self.screen)
+        self.back = Button([self.all_sprites,self.buttons_group],"Back",None,40,YELLOW,None,WIDTH-100,50,screen=self.screen)
+        self.volume_botton = Button([self.all_sprites,self.buttons_group],"Sounds",None,40,YELLOW,None,100,50,screen=self.screen)
         self.order_manage = order_manage
         self.json_path = json_path
         self.json = self.json_load()
@@ -21,6 +21,23 @@ class HighScores(WindowScreen):
         self.first = Button([self.all_sprites,self.buttons_group],f"First: {self.json[0]['name']} Total time {self.json[0]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
         self.second = Button([self.all_sprites,self.buttons_group],f"Second: {self.json[1]['name']} Total time {self.json[1]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2,screen=self.screen)
         self.third = Button([self.all_sprites,self.buttons_group],f"Third: {self.json[2]['name']} Total time {self.json[2]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+200,screen=self.screen)
+    
+    def player_creator(self):
+        player = {"total_time":playing.Playing.total_time,"level_1_time":playing.Playing.total_time,"level_2_time":playing.Playing.total_time,"level_3_time":playing.Playing.total_time,"name":input("como te llamas?: ")[:5].upper()}
+        self.json_add(player)
+
+    def json_add(self,player):
+        with open(SCORES_JSON, "a") as archive:
+            json.dump(player, archive)
+        
+
+    def button_logic(self):
+        if self.back.pressed_button():
+            self.playing = False
+        elif self.volume_botton.pressed_button():
+            self.screen_seen = Volume(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
+            self.screen_seen.playing = True
+            self.screen_seen.run_game()
 
     def json_load(self):
         with open(self.json_path, 'r') as archive:
@@ -28,7 +45,7 @@ class HighScores(WindowScreen):
 
     def json_dump(self):
         with open(self.json_path, 'w') as archive:
-            self.json = json.dump(self.json,archive,indent=4)
+            json.dump(self.json[:3],archive)
 
     def bubble_sort_by_total_time(self):
         n = len(self.json)
@@ -40,25 +57,6 @@ class HighScores(WindowScreen):
                     self.json[j], self.json[j + 1] = self.json[j + 1], self.json[j]
 
 
-    def draw(self):
-        super().draw()
-        print(self.json)
-
     def update(self):
         super().update()
-
-    def run_game(self):
-        while True:
-           
-            
-            event_list = pygame.event.get()
-            for event in event_list:
-                if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                    self.exit()      
-
-
-            self.update()
-            self.draw()
-            
-
-            pygame.display.flip()
+        self.button_logic()

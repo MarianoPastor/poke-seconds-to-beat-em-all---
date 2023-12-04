@@ -34,11 +34,6 @@ class NPC(Character):
             
 
     def update(self):
-        super().update()  
-        #self.attack()
+        super().update()
         self.left_right_moves()
-        print("NPC UPDATE")
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
-        print("NPC DRAW")
+        

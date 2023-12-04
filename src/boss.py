@@ -1,42 +1,45 @@
 import pygame
 from constants import *
 from character import Character
+from random import randint
 
 class Boss(Character):
-    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,movement,energy_ball_direccion):
-        super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y)
+    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump,energy_ball_direccion):
+        super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump)
         self.energy_ball_attack = False
         self.energy_ball_direccion = energy_ball_direccion
         self.inverse_gravity= False
-        self.movement_direction = "idle"
-        self.movement = movement
+        self.movement_direction = "left"
         self.event_time_invertion = False
+        self.inmortality = True
+        self.count = randint(2,5)
         self.correction_of_directory_moves_left_right()
         
 
     def update(self):
-        self.left_right_moves(self.movement)
-        #self.attack(keys)
-    
-
-    # def gravity_invertion(self):
-    #     if self.event_time_invertion:
-    #         if keys[pygame.K_SPACE]:
-    #             if keys[pygame.K_LEFT]:
-    #                 pass
-    #             if keys[pygame.K_RIGHT]:
-    #                 pass  
-    #             self.generate_sound(SHOOT_SOUND,VOLUME)
-    #             self.rock = False
+        super().update()
+        self.center_move_attack()
 
 
-    def left_right_moves(self,bool)->None:
-        if bool: 
-            if self.rect.left <= 0:
+    def center_move_attack(self)->None:
+            if self.rect.left <= WIDTH/2:
                 self.movement_direction = "right"
+                self.movement_image = self.dictionary_surfaces["right"]
             elif  self.rect.right >= WIDTH:
                 self.movement_direction = "left"
-            self.movement_image == self.dictionary_surfaces["right"] if self.movement_direction == "right" else self.dictionary_surfaces["left"]
-            self.rect.left += SPEED_ENEMY if self.movement_direction == "right" else - SPEED_ENEMY
+                self.movement_image = self.dictionary_surfaces["left"]
+            self.rect.left += self.speed if self.movement_direction == "right" else - self.speed  
+            if self.rect.left == WIDTH/2:
+                self.inverse_gravity= True
+                self.count -= 1
+            if self.count == 0:
+                self.inverse_gravity= False
+                self.count = randint(2,5)
+            
+    
+            
+            
+                 
+
 
             

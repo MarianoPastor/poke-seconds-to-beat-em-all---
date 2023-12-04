@@ -8,8 +8,10 @@ class Character(pygame.sprite.Sprite):
         self.character_size = character_size
         self.gravity= True
         self.jumping = False
+        self.damage_flag = True
         self.power_jump = power_jump
         self.dictionary_surfaces = dictionary_surfaces
+        self.direction_attack = "left" if self.dictionary_surfaces["left"] else "right"
         self.movement_image = self.dictionary_surfaces["left"]
         self.frame = 0
         self.image = pygame.transform.scale(self.movement_image[self.frame],self.character_size)
@@ -22,6 +24,14 @@ class Character(pygame.sprite.Sprite):
         self.sound_life = sound_life_gain
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
+
+        self.all_sprites = pygame.sprite.Group()
+        self.platforms_group = pygame.sprite.Group()
+        self.enemy_groups = pygame.sprite.Group()
+        self.energy_ball_group = pygame.sprite.Group()
+        self.buttons_group = pygame.sprite.Group()
+        self.berry_group = pygame.sprite.Group()
+        self.rocks_group =pygame.sprite.Group()
         
     
     def random_number(self,numero_minimo:int=0,numero_maximo:int=20)->int:
@@ -66,6 +76,11 @@ class Character(pygame.sprite.Sprite):
                 list_for_keys.append(image)
             dictionary_moves[key3] = list_for_keys
         return dictionary_moves
+    
+    def mask_collide(self, sprite2):
+        # Verifica la colisión de máscaras entre dos sprites
+        return self.mask_image.overlap(sprite2.mask_image, (sprite2.rect.x - self.rect.x, sprite2.rect.y - self.rect.y)) is not None
+
 
     def generate_sound(self,path: str, volume: float= VOLUME)->None:
         sound = pygame.mixer.Sound(path)
@@ -104,9 +119,6 @@ class Character(pygame.sprite.Sprite):
         except:
             self.dictionary_surfaces["right"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
             self.dictionary_surfaces["left"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
-    
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
         
     def update(self) -> None:
         self.move_change()

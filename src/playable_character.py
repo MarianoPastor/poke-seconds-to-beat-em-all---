@@ -1,7 +1,8 @@
-from typing import Any
 import pygame
 from constants import *
 from character import Character
+from energy_ball import EnergyBall
+
 
 class PlayableCharacter(Character):
     def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
@@ -32,33 +33,33 @@ class PlayableCharacter(Character):
         else:
             self.gravity = True
             self.movement_image = self.dictionary_surfaces["idle"]
-        
-            
 
+        
     def attack(self,keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
-                if self.movement_image == "left":
-                    pass
-                if self.movement_image == "right":
-                    pass
-                self.movement_image = "attack"
+                x,y = self.rect.center
+                if self.direction_attack == "left":
+                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites,self.energy_ball_group],image_surface=pygame.image.load(SHOOT_IMAGE),energy_size=(50,50),center_x=x-40,center_y=y,speed=-ATTACK_SPEED,direction=self.direction_attack,power_rocks=self.rocks)
+                if self.direction_attack == "right":
+                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites,self.energy_ball_group],image_surface=pygame.image.load(SHOOT_IMAGE),energy_size=(50,50),center_x=x+40,center_y=y,speed=ATTACK_SPEED,direction=self.direction_attack,power_rocks=self.rocks)
+                self.movement_image = self.dictionary_surfaces["attack"]
                 self.generate_sound(SHOOT_SOUND, VOLUME)
                 self.rocks["tunder"] = False
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
 
-    def draw(self):
-        super().draw()
-        print("PLAYER DRAW")
-
-
+    def loose_penalty(self):
+       if self.life <= 0:
+            return True
+             
+            
     def update(self) -> None:
         super().update()
         self.falling()
         keys = pygame.key.get_pressed()
         self.movements(keys)
         self.attack(keys)
-        print("PLAYER UPDATE")
+       
     

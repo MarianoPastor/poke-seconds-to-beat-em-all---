@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 from constants import *
 
@@ -14,20 +15,13 @@ class Button(pygame.sprite.Sprite):
         
 
     def pressed_button(self):
-        mouse_buttons = pygame.mouse.get_pressed()
         mouse_position = pygame.mouse.get_pos()
-        if mouse_buttons[0]:
-            if self.rect.collidepoint(mouse_position):
-                print("Botón presionado")
-
-
-    def update(self) -> None:
-        self.pressed_button()
-        print("BUT UPDATE")
+        mouse_click = pygame.mouse.get_pressed()  
+        if self.rect.collidepoint(mouse_position):
+            if mouse_click[0]== True:
+                return True
     
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
-        print("BUT DRAW")
-
-
+    def life_see(self,player_lifes):
+        Button([self.all_sprites,self.buttons_group],f"Lifes: {player_lifes} ",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT-50,screen=self.screen)
+    
+    

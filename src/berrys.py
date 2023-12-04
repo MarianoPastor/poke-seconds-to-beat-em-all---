@@ -4,10 +4,8 @@ from random import randint
 
 
 class Berry(pygame.sprite.Sprite):
-    def __init__(self,sprite_groups, image_surface, berry_size, center_x, center_y,screen):
+    def __init__(self,sprite_groups, image_surface, berry_size, center_x, center_y):
         super().__init__(sprite_groups)
-        self.screen = screen
-        self.all_sprites = pygame.sprite.Group()
         self.berry_size = berry_size
         self.gravity= True
         self.image = image_surface
@@ -15,12 +13,14 @@ class Berry(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = (center_x,center_y))
         self.mask_image = pygame.mask.from_surface(self.image)
         self.life_giver =  randint(-1,1)
+        self.time_update = pygame.time.get_ticks()
+        self.time_berry = randint(150,500)
+        
 
-
-    def update(self) -> None:
-        print("BUT UPDATE")
-    
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
-        print("BUT DRAW")
+    # def time_apear(self):
+    #     time_now = pygame.time.get_ticks()
+    #     berry_on = False
+    #     if time_now - self.time_update >= self.time_berry:
+    #         berry_on = True
+    #         self.time_update = time_now
+    #         return berry_on
