@@ -23,18 +23,22 @@ class PauseScreen(WindowScreen):
     def button_logic(self):
         if self.back.pressed_button():
             self.playing = False
+            self.kill()
         elif self.scores.pressed_button():
             self.screen_seen = HighScores(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=FINISH_GAME_IMAGE,json_path=SCORES_JSON,order_manage=ORDER_MANAGE)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
         elif self.controls.pressed_button():
             self.screen_seen = Controls(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
         elif self.volume_botton.pressed_button():
             self.screen_seen = Volume(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
             
     
     def update(self):

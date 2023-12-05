@@ -10,7 +10,6 @@ class EnergyBall(pygame.sprite.Sprite):
         self.original_image = image_surface  # Guardar la imagen original
         self.image = pygame.transform.scale(self.original_image, self.energy_size)
         self.rect = self.image.get_rect(center=(center_x, center_y))
-        self.rect.left += self.speed
         self.mask_image = pygame.mask.from_surface(self.image)
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
@@ -23,9 +22,15 @@ class EnergyBall(pygame.sprite.Sprite):
             self.time_update = time_now
 
     def movement(self):
+        if self.direccion == "left":
+            self.rect.left -= self.speed
+        elif self.direccion == "right":
+            self.rect.left += self.speed
         if self.rect.left <= 0 or self.rect.right >= WIDTH:
             self.kill()
         self.move_change()
+
     
     def update(self) -> None:
+        super().update()
         self.movement()

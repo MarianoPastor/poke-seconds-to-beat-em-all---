@@ -107,6 +107,7 @@ class Level3(WindowScreen):
             self.screen_level = HighScores(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=FINISH_GAME_IMAGE,json_path=SCORES_JSON,order_manage=ORDER_MANAGE)
             self.screen_level.playing = True
             self.screen_level.run_game()
+            self.kill()
 
     def update(self):
         super().update()

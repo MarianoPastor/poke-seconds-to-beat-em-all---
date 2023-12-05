@@ -8,7 +8,9 @@ class PlayableCharacter(Character):
     def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
         super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump)
         self.rocks = {"tunder" : False, "water" : False,"leaf" : False,"fire" : False}
+        self.energy_ball = None
         self.correction_of_directory_moves_r_l_a_i()
+        
 
     def movements(self,keys) -> None:
         if keys[pygame.K_LEFT] and self.rect.left >= 0:
@@ -35,14 +37,14 @@ class PlayableCharacter(Character):
             self.movement_image = self.dictionary_surfaces["idle"]
 
         
-    def attack(self,keys):
+    def attack(self, keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
-                x,y = self.rect.center
+                x, y = self.rect.center
                 if self.direction_attack == "left":
-                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites,self.energy_ball_group],image_surface=pygame.image.load(SHOOT_IMAGE),energy_size=(50,50),center_x=x-40,center_y=y,speed=-ATTACK_SPEED,direction=self.direction_attack,power_rocks=self.rocks)
-                if self.direction_attack == "right":
-                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites,self.energy_ball_group],image_surface=pygame.image.load(SHOOT_IMAGE),energy_size=(50,50),center_x=x+40,center_y=y,speed=ATTACK_SPEED,direction=self.direction_attack,power_rocks=self.rocks)
+                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x - 40, center_y=y, speed=-ATTACK_SPEED, direction=self.direction_attack, power_rocks=self.rocks)
+                elif self.direction_attack == "right":
+                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x + 40, center_y=y, speed=ATTACK_SPEED, direction=self.direction_attack, power_rocks=self.rocks)
                 self.movement_image = self.dictionary_surfaces["attack"]
                 self.generate_sound(SHOOT_SOUND, VOLUME)
                 self.rocks["tunder"] = False

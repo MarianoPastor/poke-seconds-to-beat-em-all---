@@ -25,18 +25,22 @@ class InitialScreen(WindowScreen):
             self.screen_seen = Level1(sprite_groups=[self.all_sprites,self.level_1_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_1)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
         elif self.scores.pressed_button():
             self.screen_seen = HighScores(sprite_groups=[self.all_sprites,self.scores_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=FINISH_GAME_IMAGE,json_path=SCORES_JSON,order_manage=ORDER_MANAGE)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
         elif self.controls.pressed_button():
             self.screen_seen = Controls(sprite_groups=[self.all_sprites,self.controls_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
         elif self.volume_botton.pressed_button():
             self.screen_seen = Volume(sprite_groups=[self.all_sprites, self.volume_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
             self.screen_seen.playing = True
-            self.screen_seen.run_game()    
+            self.screen_seen.run_game()
+            self.kill()    
         
     def update(self):
         super().update()

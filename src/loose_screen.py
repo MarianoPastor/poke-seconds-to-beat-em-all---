@@ -15,6 +15,7 @@ class Loose_screen(WindowScreen):
     def button_logic(self):
         if self.back.pressed_button():
             self.playing = False
+            self.kill()
 
     def update(self):
         super().update()

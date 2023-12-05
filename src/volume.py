@@ -17,6 +17,7 @@ class Volume(WindowScreen):
     def button_logic(self):
         if self.back.pressed_button():
             self.playing = False
+            self.kill()
         elif self.volume_off_on.pressed_button():
             self.volume_flag != self.volume_flag
             if self.volume_flag:

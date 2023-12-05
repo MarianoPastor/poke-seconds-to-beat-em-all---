@@ -22,7 +22,7 @@ class Controls(WindowScreen):
     def button_logic(self):
         if self.back.pressed_button():
             self.playing = False
-            self.controls.kill()
+            self.kill()
 
     def update(self):
         super().update()

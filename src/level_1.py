@@ -106,11 +106,13 @@ class Level1(WindowScreen):
                 self.screen_level = Level2(sprite_groups=[self.all_sprites],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_2)
                 self.screen_level.playing = True
                 self.screen_level.run_game()
+                self.kill()
             if self.player.loose_penalty(self):
                 self.time_save()
                 self.screen_level = Loose_screen(sprite_groups=[self.all_sprites],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_3)
                 self.screen_level.playing = True
                 self.screen_level.run_game()
+                self.kill()
     
     def time_save(self):
         playing.Playing.time_play_1 == self.time if self.playing == False else 0 

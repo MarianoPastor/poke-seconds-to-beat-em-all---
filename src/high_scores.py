@@ -29,15 +29,16 @@ class HighScores(WindowScreen):
     def json_add(self,player):
         with open(SCORES_JSON, "a") as archive:
             json.dump(player, archive)
-        
 
     def button_logic(self):
         if self.back.pressed_button():
             self.playing = False
+            self.kill()
         elif self.volume_botton.pressed_button():
             self.screen_seen = Volume(sprite_groups=[self.all_sprites],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
             self.screen_seen.playing = True
             self.screen_seen.run_game()
+            self.kill()
 
     def json_load(self):
         with open(self.json_path, 'r') as archive:
@@ -52,7 +53,7 @@ class HighScores(WindowScreen):
         for i in range(n - 1):
             for j in range(0, n - i - 1):
                 # Compara los elementos basados en "total_time"
-                if self.json[j]["total_time"] < self.json[j + 1]["total_time"]:
+                if self.json[j]["total_time"] > self.json[j + 1]["total_time"]:
                     # Intercambia los elementos si están en el orden incorrecto
                     self.json[j], self.json[j + 1] = self.json[j + 1], self.json[j]
 

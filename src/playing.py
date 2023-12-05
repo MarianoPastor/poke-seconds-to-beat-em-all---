@@ -32,7 +32,3 @@ class Playing:
 
             self.clock.tick(FPS)
             pygame.display.flip()
-
-        
-
-        

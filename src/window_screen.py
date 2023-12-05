@@ -73,6 +73,7 @@ class WindowScreen(pygame.sprite.Sprite):
         self.background_group.draw(self.screen)
         self.all_sprites.draw(self.screen)
         self.mouse_group.draw(self.screen)
+        self.energy_ball_group.draw(self.screen)
         
         
     
@@ -80,8 +81,8 @@ class WindowScreen(pygame.sprite.Sprite):
         self.background_group.update()
         self.all_sprites.update()
         self.mouse_group.update()
-        
-        
+        self.energy_ball_group.update()
+
 
     def run_game(self):
         while True:
