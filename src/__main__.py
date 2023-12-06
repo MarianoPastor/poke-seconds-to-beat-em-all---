@@ -1,6 +1,5 @@
 import playing
-from constants import *
 
 if "__main__":
     game = playing.Playing()
-    game.run_game()
+    game.initial_screen.run_game()

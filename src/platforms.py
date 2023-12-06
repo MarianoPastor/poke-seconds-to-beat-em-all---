@@ -7,7 +7,7 @@ class Platform(pygame.sprite.Sprite):
         self.movement = movement.upper()
         self.image = pygame.Surface((rect_surface[2], rect_surface[3]))
         self.rect = self.image.get_rect(center = (rect_surface[0],rect_surface[1]))
-        self.mask_image = pygame.mask.from_surface(self.image)
+        self.mask = pygame.mask.from_surface(self.image)
         self.image.fill(color)
         self.moving_now = "stay"
 
@@ -25,7 +25,16 @@ class Platform(pygame.sprite.Sprite):
                     self.moving_now = "up"
                 self.rect.top += PLATFORM_SPEED if self.moving_now == "down" else - PLATFORM_SPEED
         else:
-            pass
+            self.moving_now = "stay"
+
+    def platform_logic(player,group):
+        collition = pygame.sprite.spritecollide(player,group,dokill=False)
+        if len(list(collition)) > 0:
+                player.rect.bottom == collition[0].rect.top
+                player.jumping = False
+                player.gravity = False
+        else:
+            player.falling()
 
     def update(self) -> None:
         self.left_right_moves()

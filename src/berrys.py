@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 from constants import *
 from random import randint
@@ -15,12 +16,3 @@ class Berry(pygame.sprite.Sprite):
         self.life_giver =  randint(-1,1)
         self.time_update = pygame.time.get_ticks()
         self.time_berry = randint(150,500)
-        
-
-    # def time_apear(self):
-    #     time_now = pygame.time.get_ticks()
-    #     berry_on = False
-    #     if time_now - self.time_update >= self.time_berry:
-    #         berry_on = True
-    #         self.time_update = time_now
-    #         return berry_on

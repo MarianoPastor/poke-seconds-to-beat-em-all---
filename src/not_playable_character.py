@@ -10,17 +10,6 @@ class NPC(Character):
         self.movement = movement
         self.correction_of_directory_moves_left_right()
 
-    # def attack(self):
-    #     events = 0
-    #     for event in events:
-    #         if self.rock and event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-    #             if event.key == pygame.K_LEFT:
-    #                 pass
-    #             elif event.key == pygame.K_RIGHT:
-    #                 pass
-    #             self.generate_sound(SHOOT_SOUND, VOLUME)
-    #             self.rock = False
-
     def left_right_moves(self):
         if self.movement:
             if self.rect.left <= 0:
@@ -32,6 +21,14 @@ class NPC(Character):
 
             self.rect.left += SPEED_ENEMY if self.movement_direction == "right" else -SPEED_ENEMY
             
+    def player_collide_enemy(player,group):
+        collisions = pygame.sprite.spritecollide(player, group,dokill=False)
+        # Verificar si hay colisiones con algún objeto del grupo
+        if collisions and player.damage_flag:        
+            player.life -= 1
+            player.damage_flag = False
+        elif not collisions and not player.damage_flag: 
+            player.damage_flag = True
 
     def update(self):
         super().update()

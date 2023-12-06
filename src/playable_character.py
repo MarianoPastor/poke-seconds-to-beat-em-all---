@@ -2,6 +2,7 @@ import pygame
 from constants import *
 from character import Character
 from energy_ball import EnergyBall
+from volume import Volume
 
 
 class PlayableCharacter(Character):
@@ -46,7 +47,7 @@ class PlayableCharacter(Character):
                 elif self.direction_attack == "right":
                     self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x + 40, center_y=y, speed=ATTACK_SPEED, direction=self.direction_attack, power_rocks=self.rocks)
                 self.movement_image = self.dictionary_surfaces["attack"]
-                self.generate_sound(SHOOT_SOUND, VOLUME)
+                Volume.sound_fx(SHOOT_SOUND, VOLUME)
                 self.rocks["tunder"] = False
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False

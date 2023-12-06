@@ -1,4 +1,4 @@
-from typing import Any
+from window_screen import WindowScreen
 import pygame
 from constants import *
 
@@ -10,8 +10,7 @@ class Button(pygame.sprite.Sprite):
         self.font_load = pygame.font.Font(font, size_text)
         self.image = self.font_load.render(text_for_blit, True, color_text, back_color)
         self.rect = self.image.get_rect(center=(x, y))
-        self.all_sprites = pygame.sprite.Group()
-        self.buttons_group = pygame.sprite.Group()
+        self.all_sprites_group = pygame.sprite.Group()
         
 
     def pressed_button(self):
@@ -22,6 +21,6 @@ class Button(pygame.sprite.Sprite):
                 return True
     
     def life_see(self,player_lifes):
-        Button([self.all_sprites,self.buttons_group],f"Lifes: {player_lifes} ",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT-50,screen=self.screen)
+        Button([self.all_sprites_group],f"Lifes: {player_lifes} ",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT-50,screen=self.screen)
     
     
