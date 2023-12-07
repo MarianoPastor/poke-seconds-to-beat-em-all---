@@ -1,4 +1,3 @@
-from window_screen import WindowScreen
 import pygame
 from constants import *
 
@@ -6,7 +5,6 @@ class Button(pygame.sprite.Sprite):
     def __init__(self, sprite_groups, text_for_blit, font, size_text, color_text, back_color, x, y,screen) -> None:
         super().__init__(sprite_groups)
         self.screen = screen
-        self.all_sprites = sprite_groups
         self.font_load = pygame.font.Font(font, size_text)
         self.image = self.font_load.render(text_for_blit, True, color_text, back_color)
         self.rect = self.image.get_rect(center=(x, y))
@@ -21,6 +19,7 @@ class Button(pygame.sprite.Sprite):
                 return True
     
     def life_see(self,player_lifes):
-        Button([self.all_sprites_group],f"Lifes: {player_lifes} ",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT-50,screen=self.screen)
+        Button([self.all_sprites_group],f"Lifes: {player_lifes} ",None,30,PURPLE,YELLOW,WIDTH/2-100,HEIGHT-50,screen=self.screen)
     
-    
+    def time_see(self,time):
+        Button([self.all_sprites_group],f"Time: {time} ",None,30,PURPLE,YELLOW,WIDTH/2+100,HEIGHT-50,screen=self.screen)   

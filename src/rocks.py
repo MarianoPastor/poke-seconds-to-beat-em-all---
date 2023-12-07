@@ -2,7 +2,6 @@ import pygame
 from constants import *
 
 
-
 class Rock(pygame.sprite.Sprite):
     def __init__(self,sprite_groups, image_surface, rock_size, center_x, center_y):
         super().__init__(sprite_groups)

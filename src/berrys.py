@@ -1,4 +1,3 @@
-from typing import Any
 import pygame
 from constants import *
 from random import randint

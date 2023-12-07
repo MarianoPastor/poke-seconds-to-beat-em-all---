@@ -17,15 +17,11 @@ class HighScores(WindowScreen):
         self.json_path = json_path
         self.json = self.json_load()
         self.bubble_sort_by_total_time()
-        Volume.load_music(self.music_path,self.volume_float)
+        
         
         self.first = Button([self.all_sprites_group],f"First: {self.json[0]['name']} Total time {self.json[0]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
         self.second = Button([self.all_sprites_group],f"Second: {self.json[1]['name']} Total time {self.json[1]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2,screen=self.screen)
         self.third = Button([self.all_sprites_group],f"Third: {self.json[2]['name']} Total time {self.json[2]['total_time']}",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+200,screen=self.screen)
-    
-    def player_creator(self):
-        player = {"total_time":playing.Playing.total_time,"level_1_time":playing.Playing.total_time,"level_2_time":playing.Playing.total_time,"level_3_time":playing.Playing.total_time,"name":input("como te llamas?: ")[:5].upper()}
-        self.json_add(player)
 
     def json_add(self,player):
         with open(SCORES_JSON, "a") as archive:

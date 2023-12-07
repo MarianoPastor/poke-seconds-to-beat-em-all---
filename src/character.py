@@ -1,7 +1,7 @@
 import pygame
 from constants import *
-from random import randint
 from volume import Volume
+import window_screen
 
 class Character(pygame.sprite.Sprite):
     def __init__(self,sprite_groups, dictionary_surfaces, life, speed, sound_attack, sound_damage, sound_life_gain, character_size, center_x, center_y, power_jump):
@@ -26,7 +26,7 @@ class Character(pygame.sprite.Sprite):
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
 
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites_group = pygame.sprite.Group()
         self.platforms_group = pygame.sprite.Group()
         self.enemy_groups = pygame.sprite.Group()
         self.energy_ball_group = pygame.sprite.Group()
@@ -35,9 +35,6 @@ class Character(pygame.sprite.Sprite):
         self.rocks_group =pygame.sprite.Group()
         
     
-    def random_number(self,numero_minimo:int=0,numero_maximo:int=20)->int:
-        return randint(numero_minimo,numero_maximo)
-
     def falling(self):
         if self.jumping:
             self.gravity = True
@@ -54,7 +51,7 @@ class Character(pygame.sprite.Sprite):
             self.time_update = time_now
 
     def damaged(self):
-        Volume.sound_fx(DAMAGE_SOUND,VOLUME)
+        Volume.sound_fx(DAMAGE_SOUND,window_screen.WindowScreen.fx_float)
         self.life -= 0
      
     def sticker_dictionary(self, path, key1, cuant1, key2=None, cuant2=None, key3=None, cuant3=None):
@@ -82,11 +79,6 @@ class Character(pygame.sprite.Sprite):
         # Verifica la colisión de máscaras entre dos sprites
         return self.mask_image.overlap(sprite2.mask_image, (sprite2.rect.x - self.rect.x, sprite2.rect.y - self.rect.y)) is not None
 
-
-    # def generate_sound(self,path: str, volume: float= VOLUME)->None:
-    #     sound = pygame.mixer.Sound(path)
-    #     sound.set_volume(volume)
-    #     pygame.mixer.Sound.play(sound)
 
     def change_frame(self):
         self.frame += 1
@@ -120,12 +112,6 @@ class Character(pygame.sprite.Sprite):
         except:
             self.dictionary_surfaces["right"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
             self.dictionary_surfaces["left"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
-        
-
-    def collition_verify(self,object)->None:
-    #verifica y actua en funcion a colision diccionario_1 y diccionario_2
-        return True  if object.mask.overlap_area(self.rect, (self.rect.x - object.rect.x, self.rect.y - object.rect.y)) else False
-    
     
     def update(self) -> None:
         self.move_change()

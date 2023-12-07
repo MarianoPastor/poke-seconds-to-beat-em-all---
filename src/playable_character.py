@@ -42,21 +42,19 @@ class PlayableCharacter(Character):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
                 x, y = self.rect.center
-                if self.direction_attack == "left":
-                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x - 40, center_y=y, speed=-ATTACK_SPEED, direction=self.direction_attack, power_rocks=self.rocks)
-                elif self.direction_attack == "right":
-                    self.energy_ball = EnergyBall(sprite_groups=[self.all_sprites, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x + 40, center_y=y, speed=ATTACK_SPEED, direction=self.direction_attack, power_rocks=self.rocks)
                 self.movement_image = self.dictionary_surfaces["attack"]
                 Volume.sound_fx(SHOOT_SOUND, VOLUME)
+                EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x - 40, center_y=y, speed=-ATTACK_SPEED, direction=self.direction_attack)
                 self.rocks["tunder"] = False
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
+                
 
     def loose_penalty(self):
        if self.life <= 0:
             return True
-             
+    
             
     def update(self) -> None:
         super().update()
@@ -64,5 +62,3 @@ class PlayableCharacter(Character):
         keys = pygame.key.get_pressed()
         self.movements(keys)
         self.attack(keys)
-       
-    

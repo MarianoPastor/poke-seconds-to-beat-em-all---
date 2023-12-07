@@ -20,7 +20,7 @@ class LevelSelection(WindowScreen):
         self.level_1_choice = Button([self.all_sprites_group],"Level 1",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
         self.level_2_choice = Button([self.all_sprites_group],"Level 2",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-100,screen=self.screen)
         self.level_3_choice = Button([self.all_sprites_group],"Level 3",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2,screen=self.screen)
-        Volume.load_music(self.music_path,self.volume_float)
+       
         
     def button_logic(self):
         if self.back.pressed_button():
@@ -31,13 +31,15 @@ class LevelSelection(WindowScreen):
             self.screen_level.run_game()
             #self.kill()
         elif self.level_2_choice.pressed_button():
-            self.screen_level = Level2(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_2,screen=self.screen)
-            self.screen_level.run_game()
-            #self.kill()
-        elif self.level_3_choice.pressed_button():
-            self.screen_level = Level3(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_3,screen=self.screen)
-            self.screen_level.run_game()
-            #self.kill
+            if self.flag_level_2:
+                self.screen_level = Level2(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_2,screen=self.screen)
+                self.screen_level.run_game()
+                #self.kill()
+        elif self.level_3_choice.pressed_button():    
+            if self.flag_level_3:
+                self.screen_level = Level3(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_3,screen=self.screen)
+                self.screen_level.run_game()
+                #self.kill
 
     def update(self):
         super().update()

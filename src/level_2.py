@@ -30,17 +30,7 @@ class Level2(WindowScreen):
         self.pause_botton = Button([self.all_sprites_group],"Pause",None,35,BLACK,WHITE,WIDTH-50,20,screen=self.screen)
         self.volume_botton = Button([self.all_sprites_group],"volume",None,35,BLACK,WHITE,50,20,screen=self.screen)
         self.time_play_2 = TIME_FOR_LEVEL_2
-        Volume.load_music(self.music_path,self.volume_float)
         
-    def button_logic(self):
-        if self.pause_botton.pressed_button():
-            self.screen_seen = PauseScreen(sprite_groups=[self.all_sprites_group],music_path=TOASTY_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
-            self.screen_seen.playing = True
-            self.screen_seen.run_game()
-        elif self.volume_botton.pressed_button():
-            self.screen_seen = Volume(sprite_groups=[self.all_sprites_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK)
-            self.screen_seen.playing = True
-            self.screen_seen.run_game()
     
     def rock_logic(self):
         collisions = pygame.sprite.spritecollide(self.player, self.rocks_group, True)
@@ -96,8 +86,8 @@ class Level2(WindowScreen):
             self.kill()
     
     def time_save(self):
-        playing.Playing.time_play_2 == self.time if self.playing == False else 0 
-
+        playing.Playing.player_dict["level_2_time"] = self.second_running
+        
 
     def update(self):
         super().update()

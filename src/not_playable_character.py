@@ -23,7 +23,6 @@ class NPC(Character):
             
     def player_collide_enemy(player,group):
         collisions = pygame.sprite.spritecollide(player, group,dokill=False)
-        # Verificar si hay colisiones con algún objeto del grupo
         if collisions and player.damage_flag:        
             player.life -= 1
             player.damage_flag = False

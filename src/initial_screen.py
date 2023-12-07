@@ -18,8 +18,8 @@ class InitialScreen(WindowScreen):
         self.scores = Button([self.all_sprites_group],"Scores",None,40,YELLOW,BLACK,WIDTH-100,200,screen=self.screen)
         self.controls = Button([self.all_sprites_group],"Controls",None,40,YELLOW,BLACK,100,100,screen=self.screen)
         self.volume_botton = Button([self.all_sprites_group],"Sounds",None,40,YELLOW,BLACK,100,200,screen=self.screen)
-        Volume.load_music(self.music_path,self.volume_float)
-    
+        self.presentation_music = Volume.load_music(self.music_path,self.volume_float)
+        
     def button_logic(self):   
         if self.start_botton.pressed_button():
             self.screen_seen = LevelSelection(sprite_groups=[self.all_sprites_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=CONTROLS_BK,screen=self.screen)

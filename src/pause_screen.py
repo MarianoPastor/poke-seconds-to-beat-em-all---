@@ -1,9 +1,6 @@
-import pygame
 from constants import *
 from window_screen import WindowScreen
 from buttom import Button
-from volume import Volume
-
 
 
 
@@ -13,14 +10,11 @@ class PauseScreen(WindowScreen):
 
         self.back = Button([self.all_sprites_group],"Back ",None,40,YELLOW,None,WIDTH-100,40,screen=self.screen)
         self.name = Button([self.all_sprites_group],"PAUSE",None,80,BLACK,WHITE,WIDTH/2,HEIGHT/2,screen=self.screen)
-        Volume.load_music(self.music_path,self.volume_float)
 
     def button_logic(self):
         if self.back.pressed_button():
             self.active_bucle = False
             self.kill()
-        
-            
     
     def update(self):
         super().update()
