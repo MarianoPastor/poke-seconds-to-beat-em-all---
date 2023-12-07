@@ -7,12 +7,13 @@ class Character(pygame.sprite.Sprite):
     def __init__(self,sprite_groups, dictionary_surfaces, life, speed, sound_attack, sound_damage, sound_life_gain, character_size, center_x, center_y, power_jump):
         super().__init__(sprite_groups)
         self.character_size = character_size
+        self.energy_ball_flag = False
         self.gravity= True
         self.jumping = False
         self.damage_flag = True
         self.power_jump = power_jump
         self.dictionary_surfaces = dictionary_surfaces
-        self.direction_attack = "left" if self.dictionary_surfaces["left"] else "right"
+        self.direction_attack = "left"
         self.movement_image = self.dictionary_surfaces["left"]
         self.frame = 0
         self.image = pygame.transform.scale(self.movement_image[self.frame],self.character_size)

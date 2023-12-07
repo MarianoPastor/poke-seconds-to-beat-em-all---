@@ -17,8 +17,8 @@ class WindowScreen(pygame.sprite.Sprite):
         self.volume_correction = 0 
         self.fx_correction = 0 
         self.fx_float = 0
-        self.flag_level_2 = True
-        self.flag_level_3 = True
+        self.flag_level_2 = False
+        self.flag_level_3 = False
 
         self.second_running = 20
 
@@ -68,9 +68,6 @@ class WindowScreen(pygame.sprite.Sprite):
         self.energy_ball_group.update()
         self.mouse_group.update()
         
-        
-        
-
 
     def run_game(self):
         while self.active_bucle:

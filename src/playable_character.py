@@ -2,7 +2,6 @@ import pygame
 from constants import *
 from character import Character
 from volume import Volume
-import level_1
 
 
 class PlayableCharacter(Character):
@@ -39,7 +38,8 @@ class PlayableCharacter(Character):
         
     def attack(self, keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
-            if keys[pygame.K_SPACE]:
+            if keys[pygame.K_a] or keys[pygame.K_d]:
+                self.energy_ball_flag = False
                 self.movement_image = self.dictionary_surfaces["attack"]
                 Volume.sound_fx(SHOOT_SOUND, VOLUME)
                 self.energy_ball_flag = True
@@ -47,7 +47,11 @@ class PlayableCharacter(Character):
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
-                level_1.Level1.generate_energy_ball(self)
+            if keys[pygame.K_a]:
+                self.direction_attack = "left"
+            elif keys[pygame.K_e]:
+                self.direction_attack = "right"
+                
                 
 
     def loose_penalty(self):

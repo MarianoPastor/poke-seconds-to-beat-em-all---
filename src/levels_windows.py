@@ -67,3 +67,9 @@ class LevelsWindows(WindowScreen):
             self.active_bucle = False
             self.presentation_music = Volume.load_music(self.music_path,self.volume_float)
             self.kill()
+
+    def energy_creator(self): 
+        if self.player.energy_ball_flag:
+            x,y = self.player.rect.center
+            EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=x, center_y=y, speed=-ATTACK_SPEED, direction=self.player.direction_attack,screen=self.screen)
+            self.player.energy_ball_flag = False
