@@ -3,6 +3,7 @@ from constants import *
 from platforms import Platform
 from buttom import Button
 from levels_windows import LevelsWindows
+from energy_ball import EnergyBall
 import pygame,playing
 
 
@@ -23,7 +24,20 @@ class Level1(LevelsWindows):
         self.name_bottom = Button([self.all_sprites_group,self.level_1_group],"Fist Level",None,35,BLACK,WHITE,WIDTH/2,20,screen=self.screen)
         self.second_running = TIME_FOR_LEVEL_1
         self.old_time = pygame.time.get_ticks()
+        #EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=200, center_y=200, speed=-ATTACK_SPEED, direction="left")
         
+    # def energy_creator(character):
+    #     if character.energy_ball_flag: 
+    #         x,y = character.rect.center
+    #         EnergyBall(sprite_groups=[character.all_sprites_group, character.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=100, center_y=100, speed=-ATTACK_SPEED, direction=character.direction_attack)
+    #         character.energy_ball_flag = False
+    
+    def generate_energy_ball(character):
+        x,y = character.rect.center
+        EnergyBall(sprite_groups=[character.all_sprites_group, character.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=x, center_y=y, speed=-ATTACK_SPEED, direction="left")
+
+        #EnergyBall(sprite_groups=[character.all_sprites_group, character.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=x, center_y=y, speed=-ATTACK_SPEED, direction=character.direction_attack)
+        print("funciona")
 
     def level_logic(self):
             if len(self.enemy_groups) == 0:

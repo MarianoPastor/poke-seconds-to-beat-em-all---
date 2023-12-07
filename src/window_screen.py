@@ -6,6 +6,7 @@ from buttom import Button
 
 
 
+
 class WindowScreen(pygame.sprite.Sprite):
     def __init__(self, sprite_groups, music_path, volume_float, background_path,screen) -> None:
         super().__init__(sprite_groups)
@@ -15,6 +16,7 @@ class WindowScreen(pygame.sprite.Sprite):
         self.volume_flag = True
         self.volume_correction = 0 
         self.fx_correction = 0 
+        self.fx_float = 0
         self.flag_level_2 = True
         self.flag_level_3 = True
 

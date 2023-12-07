@@ -1,15 +1,14 @@
 import pygame
 from constants import *
 from character import Character
-from energy_ball import EnergyBall
 from volume import Volume
+import level_1
 
 
 class PlayableCharacter(Character):
     def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
         super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump)
         self.rocks = {"tunder" : False, "water" : False,"leaf" : False,"fire" : False}
-        self.energy_ball = None
         self.correction_of_directory_moves_r_l_a_i()
         
 
@@ -41,14 +40,14 @@ class PlayableCharacter(Character):
     def attack(self, keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
             if keys[pygame.K_SPACE]:
-                x, y = self.rect.center
                 self.movement_image = self.dictionary_surfaces["attack"]
                 Volume.sound_fx(SHOOT_SOUND, VOLUME)
-                EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(100, 100), center_x=x - 40, center_y=y, speed=-ATTACK_SPEED, direction=self.direction_attack)
+                self.energy_ball_flag = True
                 self.rocks["tunder"] = False
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
+                level_1.Level1.generate_energy_ball(self)
                 
 
     def loose_penalty(self):
@@ -57,8 +56,8 @@ class PlayableCharacter(Character):
     
             
     def update(self) -> None:
+        keys = pygame.key.get_pressed()
         super().update()
         self.falling()
-        keys = pygame.key.get_pressed()
         self.movements(keys)
         self.attack(keys)

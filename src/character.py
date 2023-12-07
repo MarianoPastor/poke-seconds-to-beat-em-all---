@@ -25,6 +25,7 @@ class Character(pygame.sprite.Sprite):
         self.sound_life = sound_life_gain
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
+        
 
         self.all_sprites_group = pygame.sprite.Group()
         self.platforms_group = pygame.sprite.Group()

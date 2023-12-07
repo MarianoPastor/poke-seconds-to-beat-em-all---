@@ -3,7 +3,7 @@ from playable_character import PlayableCharacter
 from volume import Volume
 from not_playable_character import NPC
 from constants import *
-from platforms import Platform
+from energy_ball import EnergyBall
 from window_screen import WindowScreen
 from buttom import Button
 from berrys import Berry
@@ -25,7 +25,7 @@ class LevelsWindows(WindowScreen):
         self.sound_levels = Volume.load_music(self.music_path,self.volume_float)
         
 
-   
+    
 
     def rock_logic(self):
         collisions = pygame.sprite.spritecollide(self.player, self.rocks_group, True)
@@ -65,4 +65,5 @@ class LevelsWindows(WindowScreen):
             self.screen_seen.run_game()
         elif self.back.pressed_button():
             self.active_bucle = False
+            self.presentation_music = Volume.load_music(self.music_path,self.volume_float)
             self.kill()
