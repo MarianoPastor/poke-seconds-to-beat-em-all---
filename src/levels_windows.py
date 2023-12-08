@@ -1,4 +1,5 @@
-import pygame, playing
+import pygame
+from platforms import Platform
 from playable_character import PlayableCharacter
 from volume import Volume
 from not_playable_character import NPC
@@ -10,6 +11,8 @@ from berrys import Berry
 from rocks import Rock
 from pause_screen import PauseScreen
 from random import randint
+from looser import Looser
+from winner import Win
 
 
 
@@ -22,10 +25,18 @@ class LevelsWindows(WindowScreen):
         self.volume_botton = Button([self.all_sprites_group,self.level_1_group],"volume",None,35,BLACK,WHITE,50,20,screen=self.screen)
         self.back = Button([self.all_sprites_group],"Back",None,35,BLACK,WHITE,50,50,screen=self.screen)
         self.second_running = TIME_FOR_LEVEL_1
-        self.sound_levels = Volume.load_music(self.music_path,self.volume_float)
+        self.back_sound = Volume.load_music(self.music_path,self.volume_float)
+        self.start_time = pygame.time.get_ticks()/1000
+        
         
 
-    
+    def loose_penalty(self):
+       if self.player.life <= 0 or self.second_running <= 0:
+        self.active_bucle = False
+        self.presentation_music = Volume.load_music(PRESENTATION_SOUND,VOLUME)
+        self.screen_seen = Looser(sprite_groups=[self.all_sprites_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=FINISH_GAME_IMAGE,screen=self.screen,player=self.player,time=self.second_running)
+        self.kill()
+        self.screen_seen.run_game()
 
     def rock_logic(self):
         collisions = pygame.sprite.spritecollide(self.player, self.rocks_group, True)
@@ -51,7 +62,7 @@ class LevelsWindows(WindowScreen):
     def berry_logic(self):
         collisions = pygame.sprite.spritecollide(self.player, self.berry_group, True)
         if not len(self.berry_group):
-            self.berry = Berry(sprite_groups=[self.all_sprites_group,self.berry_group],image_surface=pygame.image.load(FRUIT_IMAGE),berry_size=BERRY_SIZE,center_x=randint(50,WIDTH-50),center_y=randint(50,HEIGHT-50))
+            self.berry = Berry(sprite_groups=[self.all_sprites_group,self.berry_group],image_surface=pygame.image.load(FRUIT_IMAGE),berry_size=BERRY_SIZE,center_x=randint(50,WIDTH-50),center_y=randint(50,HEIGHT-50),life_giver=randint(-1,1))
         elif self.berry in collisions:
             self.player.life += self.berry.life_giver    
 
@@ -65,11 +76,55 @@ class LevelsWindows(WindowScreen):
             self.screen_seen.run_game()
         elif self.back.pressed_button():
             self.active_bucle = False
-            self.presentation_music = Volume.load_music(self.music_path,self.volume_float)
             self.kill()
+            self.back_sound = Volume.load_music(PRESENTATION_SOUND,VOLUME)
 
     def energy_creator(self): 
         if self.player.energy_ball_flag:
             x,y = self.player.rect.center
-            EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=x, center_y=y, speed=-ATTACK_SPEED, direction=self.player.direction_attack,screen=self.screen)
+            EnergyBall(sprite_groups=[self.all_sprites_group, self.energy_ball_group], image_surface=pygame.image.load(SHOOT_IMAGE), energy_size=(40, 40), center_x=x, center_y=y, speed=ATTACK_SPEED, direction=self.player.direction_attack,screen=self.screen)
             self.player.energy_ball_flag = False
+            print(self.player.direction_attack)
+    
+    def level_logic(self):
+            if len(self.enemy_groups) == 0:
+                self.flag_level_2 = True
+                self.active_bucle = False
+                self.presentation_music = Volume.load_music(PRESENTATION_SOUND,VOLUME)
+                self.screen_seen = Win(sprite_groups=[self.all_sprites_group],music_path=PRESENTATION_SOUND,volume_float=VOLUME,background_path=FINISH_GAME_IMAGE,screen=self.screen,player=self.player,time=self.second_running)
+                self.kill()
+                self.screen_seen.run_game()
+            self.loose_penalty()
+
+
+    def update(self):
+        super().update()
+        Button.life_see(self=self,player_lifes=self.player.life)
+        self.time_see()
+        EnergyBall.energy_colide_grup(self=self.energy_ball_group,group=self.enemy_groups)
+        NPC.player_collide_enemy(player=self.player,group=self.enemy_groups)
+        Platform.platform_logic(self.player,self.platforms_group)
+        self.energy_creator()
+        self.rock_logic()
+        self.button_logic()
+        self.berry_logic()
+        self.level_logic()
+
+
+
+    def time_see(self):
+        #cuenta regresiva
+        self.calculate_remaining_time()
+        Button([self.all_sprites_group],f"Time: {self.second_running} ",None,30,PURPLE,YELLOW,WIDTH/2+100,HEIGHT-50,screen=self.screen)   
+
+    
+
+    # Get the time the game started
+
+    # Function to calculate remaining time
+    def calculate_remaining_time(self):
+        current_time = pygame.time.get_ticks()
+        time = current_time/1000 - self.start_time
+        self.second_running - time
+        
+        

@@ -13,7 +13,6 @@ class Character(pygame.sprite.Sprite):
         self.damage_flag = True
         self.power_jump = power_jump
         self.dictionary_surfaces = dictionary_surfaces
-        self.direction_attack = "left"
         self.movement_image = self.dictionary_surfaces["left"]
         self.frame = 0
         self.image = pygame.transform.scale(self.movement_image[self.frame],self.character_size)

@@ -38,8 +38,8 @@ class PlayableCharacter(Character):
         
     def attack(self, keys):
         if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
-            if keys[pygame.K_a] or keys[pygame.K_d]:
-                self.energy_ball_flag = False
+            if keys[pygame.K_a]:
+                self.direction_attack = "left"
                 self.movement_image = self.dictionary_surfaces["attack"]
                 Volume.sound_fx(SHOOT_SOUND, VOLUME)
                 self.energy_ball_flag = True
@@ -47,17 +47,16 @@ class PlayableCharacter(Character):
                 self.rocks["water"] = False
                 self.rocks["leaf"] = False
                 self.rocks["fire"] = False
-            if keys[pygame.K_a]:
-                self.direction_attack = "left"
-            elif keys[pygame.K_e]:
+            elif keys[pygame.K_d]:
                 self.direction_attack = "right"
+                self.movement_image = self.dictionary_surfaces["attack"]
+                Volume.sound_fx(SHOOT_SOUND, VOLUME)
+                self.energy_ball_flag = True
+                self.rocks["tunder"] = False
+                self.rocks["water"] = False
+                self.rocks["leaf"] = False
+                self.rocks["fire"] = False
                 
-                
-
-    def loose_penalty(self):
-       if self.life <= 0:
-            return True
-    
             
     def update(self) -> None:
         keys = pygame.key.get_pressed()

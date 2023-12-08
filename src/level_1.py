@@ -23,34 +23,7 @@ class Level1(LevelsWindows):
         self.name_bottom = Button([self.all_sprites_group,self.level_1_group],"Fist Level",None,35,BLACK,WHITE,WIDTH/2,20,screen=self.screen)
         self.second_running = TIME_FOR_LEVEL_1
         self.old_time = pygame.time.get_ticks()
-        
-
-    def level_logic(self):
-            if len(self.enemy_groups) == 0:
-                self.active_bucle = False
-                self.flag_level_2 = True
-                self.kill()
-            if self.second_running <= 0:
-                self.kill()
-    
-    def time_reversal(self):
-        time_now = pygame.time.get_ticks()
-        if self.old_time - time_now >= 1000:
-            self.second_running  - 1 
-            self.old_time = time_now
 
     def time_save(self):
-        playing.Playing.player_dict["level_2_time"] = self.second_running
-   
-    def update(self):
-        super().update()
-        self.energy_creator()
-        self.time_reversal()
-        Button.life_see(self=self,player_lifes=self.player.life)
-        Button.time_see(self=self,time=self.second_running)
-        NPC.player_collide_enemy(player=self.player,group=self.enemy_groups)
-        Platform.platform_logic(self.player,self.platforms_group)
-        self.button_logic()
-        self.rock_logic()
-        self.berry_logic()
-        
+        playing.Playing.player_dict["level_1_time"] = self.second_running    
+        print(playing.Playing.player_dict)

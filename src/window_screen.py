@@ -2,7 +2,7 @@ import pygame, sys
 from constants import *
 from mouse import Mouse
 from constants import *
-from buttom import Button
+
 
 
 
@@ -11,14 +11,13 @@ class WindowScreen(pygame.sprite.Sprite):
     def __init__(self, sprite_groups, music_path, volume_float, background_path,screen) -> None:
         super().__init__(sprite_groups)
         
-        
         self.FX_off_flag = True
         self.volume_flag = True
         self.volume_correction = 0 
         self.fx_correction = 0 
         self.fx_float = 0
-        self.flag_level_2 = False
-        self.flag_level_3 = False
+        self.flag_level_2 = True
+        self.flag_level_3 = True
 
         self.second_running = 20
 
@@ -77,7 +76,6 @@ class WindowScreen(pygame.sprite.Sprite):
                 if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                     pygame.quit()
                     sys.exit()
-
             self.update()
             
             self.draw()

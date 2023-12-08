@@ -16,15 +16,15 @@ class EnergyBall(pygame.sprite.Sprite):
 
     def movement(self):
         if self.direccion == "left":
-            self.rect.left -= self.speed
+            self.rect.centerx -= self.speed
         elif self.direccion == "right":
-            self.rect.left += self.speed
+            self.rect.centerx += self.speed
         if self.rect.left <= 0 or self.rect.right >= WIDTH:
             self.kill()
 
 
     def energy_colide_grup(self,group):
-        pygame.sprite.spritecollide(self, group,True)
+        pygame.sprite.groupcollide(self, group,True,True)
     
     def energy_colide_player(self,character):
         pygame.sprite.collide_mask(self,character)

@@ -21,5 +21,4 @@ class Button(pygame.sprite.Sprite):
     def life_see(self,player_lifes):
         Button([self.all_sprites_group],f"Lifes: {player_lifes} ",None,30,PURPLE,YELLOW,WIDTH/2-100,HEIGHT-50,screen=self.screen)
     
-    def time_see(self,time):
-        Button([self.all_sprites_group],f"Time: {time} ",None,30,PURPLE,YELLOW,WIDTH/2+100,HEIGHT-50,screen=self.screen)   
+    

@@ -16,7 +16,7 @@ class Controls(WindowScreen):
         self.up_explain = Button([self.all_sprites_group,],"Key up ==> Jump",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
         self.left_explain = Button([self.all_sprites_group],"Key left ==> Move left",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-100,screen=self.screen)
         self.right_explain = Button([self.all_sprites_group],"Key right ==> Move right",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2,screen=self.screen)
-        self.espace_explain = Button([self.all_sprites_group],"Key espace ==> Attack",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+100,screen=self.screen)
+        self.espace_explain = Button([self.all_sprites_group],"Key a (left) or d (right) ==> Attack",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+100,screen=self.screen)
         self.escape_explain = Button([self.all_sprites_group],"Key escape ==> Exit Game",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+200,screen=self.screen)
         
 
