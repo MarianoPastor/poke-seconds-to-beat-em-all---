@@ -38,6 +38,9 @@ class Boss(Character):
                 player.damage_flag = False
         else:
             player.damage_flag = True
+
+    
+            
         
     def update(self) -> None:
         super().update()

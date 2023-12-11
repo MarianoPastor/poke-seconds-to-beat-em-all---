@@ -30,17 +30,17 @@ class LevelSelection(WindowScreen):
         elif self.level_1_choice.pressed_button():
             self.screen_level = Level1(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_1,screen=self.screen)
             self.screen_level.run_game()
-           
+            self.kill()
         elif self.level_2_choice.pressed_button():
             if self.flag_level_2:
                 self.screen_level = Level2(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_2,screen=self.screen)
                 self.screen_level.run_game()
-                
+                self.kill()
         elif self.level_3_choice.pressed_button():    
             if self.flag_level_3 and self.flag_level_2:
                 self.screen_level = Level3(sprite_groups=[self.all_sprites_group],music_path=LEVEL_SOUND,volume_float=VOLUME,background_path=LEVEL_3,screen=self.screen)
                 self.screen_level.run_game()
-                
+                self.kill()
 
     def update(self):
         super().update()

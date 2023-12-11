@@ -19,6 +19,8 @@ class Level3(LevelsWindows):
         self.npc_3_3 = NPC(sprite_groups=[self.all_sprites_group,self.enemy_groups],image_surface= NPC.sticker_dictionary(self,MOLTRES_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_ENEMY,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_ENEMY,center_y=85,center_x=WIDTH/2,movement=True,power_jump=JUMP_ENEMY,fire_rock_deb= False,leaf_rock_deb=False,water_rock_deb= True,tunder_rock_deb= True)
         self.boss = Boss(sprite_groups=[self.all_sprites_group],image_surface= Boss.sticker_dictionary(self,MEWTWO_SPRITES,"left",3),life= LIFE_ENEMY,speed= SPEED_BOSS,sound_attack= SHOOT_SOUND,sound_damage= DAMAGE_SOUND,sound_life_gain= LIFE_SOUND,size= SIZE_BOSS,center_y=HEIGHT / 1.5,center_x=WIDTH-100,power_jump=JUMP_ENEMY)
        
+        self.flag_boss = True 
+       
         self.platform_1 = Platform([self.all_sprites_group,self.platforms_group],image_surface=PLATFORM_LOADED,size=(85,15),center_x=WIDTH/2,center_y=HEIGHT/1.5,movement="HEIGHT")
         self.platform_2 = Platform([self.all_sprites_group,self.platforms_group],image_surface=PLATFORM_LOADED,size=(85,15),center_x=WIDTH/3,center_y=HEIGHT/1.8,movement="WIDTH")
        
@@ -33,13 +35,13 @@ class Level3(LevelsWindows):
             self.boss.count -= 1    
         if self.boss.inverse_gravity:
             self.player.gravity = False
-            self.player.jumping = True
+            self.player.jumping = False
             self.player.rect.top -= self.boss.speed 
             if self.player.rect.top <= 10:
                 self.player.rect.top = 10
-            elif self.boss.count == 0:
-                self.boss.inverse_gravity != self.boss.inverse_gravity
-                self.boss.count = random.randint(2,3)
+        if self.boss.count == 0:
+            self.boss.inverse_gravity != self.boss.inverse_gravity
+            self.boss.count = random.randint(2,3)
         
     
     def best_time(self):
@@ -48,7 +50,7 @@ class Level3(LevelsWindows):
 
     
     def level_logic(self):
-        if len(self.enemy_groups) <= 0 and not self.boss:
+        if len(self.enemy_groups) <= 0 and not self.flag_boss:
             self.best_time()
             self.active_bucle = False
             self.presentation_music = Volume.load_music(PRESENTATION_SOUND,VOLUME)
@@ -63,9 +65,11 @@ class Level3(LevelsWindows):
         self.loose_penalty()
 
     def energy_collide_boss(self):
-        colide = pygame.sprite.spritecollide(self.boss,self.energy_ball_group,False)
-        if len(colide) > 0 and self.boss.gravity == False:
-            self.boss.kill()
+        collisions = pygame.sprite.spritecollide(self.boss, self.energy_ball_group,dokill=False)
+        if collisions and not self.boss.inmortality: 
+            self.flag_boss = False     
+            self.kill()
+       
 
     def update(self):
         super().update()
@@ -73,5 +77,5 @@ class Level3(LevelsWindows):
         self.fireball_event(self.npc_3_3)
         Boss.boss_collide_player(self=self.boss,player=self.player)
         self.gravity_invertion()
-        #self.energy_collide_boss()
+        self.energy_collide_boss()
         

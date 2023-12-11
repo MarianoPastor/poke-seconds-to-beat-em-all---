@@ -108,7 +108,6 @@ class LevelsWindows(WindowScreen):
             Volume.sound_fx(DAMAGE_SOUND,fx_volume_variable)
 
 
-
     def fireball_event(self,character):
         try:
             if character in self.enemy_groups:
