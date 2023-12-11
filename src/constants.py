@@ -1,23 +1,25 @@
-import os
+import os,pygame
 
 #screen
 SCREEN_TUPLE = (1000, 700)
 WIDTH, HEIGHT = SCREEN_TUPLE
 
 #time, text and more
-TIME_FOR_LEVEL_1 = 15
-TIME_FOR_LEVEL_2 = 15
-TIME_FOR_LEVEL_3 = 15
+TIME_FOR_LEVEL_1 = 30
+TIME_FOR_LEVEL_2 = 30
+TIME_FOR_LEVEL_3 = 50
 FPS = 60
 SIZE_TEXT = 40
 VOLUME = 1.00
-FX_VOLUME = 1.00
+FX_VOLUME = 1
+fx_change = 0
+fx_volume_variable = FX_VOLUME + fx_change
 FLOOR_LEVEL = HEIGHT - 50
 TIME_FRAME_CHANGE = 100
 ORDER_MANAGE = "total_time"
-BERRY_SIZE = (35,40)
+BERRY_SIZE = (40,45)
 TIME_BERRYS = 300
-ROCK_SIZE = (35,40)
+ROCK_SIZE = (40,45)
 MOUSE_SIZE = (25,25)
 SPEED_PLAYER = 15
 ATTACK_SPEED = 5
@@ -31,8 +33,15 @@ LIFE_ENEMY = 1
 SPEED_ENEMY = 7
 SIZE_BOSS = (WIDTH / 8, HEIGHT / 8)
 LIFE_BOSS = 1
-SPEED_BOSS = 5
+SPEED_BOSS = 7
 PLATFORM_SPEED = 5
+
+#dictionary of debility
+DEBILITY_TUNDER = "tunder"
+DEBILITY_WATER = "water"
+DEBILITY_LEAF = "leaf"
+DEBILITY_FIRE = "fire"
+
 
 #colors in RGB
 RED = (255, 0, 0)
@@ -62,6 +71,7 @@ CONTROLS_BK = os.path.join(BACKGROUNDS,"controls_bk.jpg")
 
 #scores paths
 SCORES_JSON = os.path.join(comence_path,"src\scores.json")
+DATA_PLAYER_JSON = os.path.join(comence_path,"src\data_player.json")
 
 #sounds paths
 DAMAGE_SOUND = os.path.join(PATH_SOUNDS,"damage_sound.mp3")
@@ -84,11 +94,16 @@ SNORLAX_SPRITES = os.path.join(PATH_IMAGES,"snorlax")
 MEWTWO_SPRITES = os.path.join(PATH_IMAGES,"mewtwo")
 
 #png paths
+PLATFORM = os.path.join(PATH_ICONS_AND_MORE,"platform.png")
 FIRE_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"fire_image.png")
 TUNDER_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"thunder_image.png")
 WHATER_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"whater_image.png")
 LEAF_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"leaf_image.png")
-SHOOT_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"shoot_image.png")
+ENERGY_BALL_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"shoot_image.png")
+FIREBALL_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"fireball.png")
 
 FRUIT_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"fruit_image.png")
 POKEBALL_IMAGE = os.path.join(PATH_ICONS_AND_MORE,"pokeball_image.png")
+
+#image loaded
+PLATFORM_LOADED = pygame.image.load(PLATFORM)

@@ -2,14 +2,16 @@ import pygame
 from constants import *
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, groups, rect_surface : pygame.Rect , color : tuple, movement: str="stay") -> None:
+    def __init__(self, groups, image_surface : pygame.surface , size : tuple,center_x,center_y, movement: str="stay") -> None:
         super().__init__(groups)
         self.movement = movement.lower()
-        self.image = pygame.Surface((rect_surface[2], rect_surface[3]))
-        self.rect = self.image.get_rect(center = (rect_surface[0],rect_surface[1]))
+        self.image = image_surface
+        self.size = size
+        self.image = pygame.transform.scale(self.image,self.size)
+        self.rect = self.image.get_rect(center = (center_x,center_y))
         self.mask = pygame.mask.from_surface(self.image)
-        self.image.fill(color)
         self.moving_now = "stay"
+
 
     def platform_height_or_width_moves(self)->None:
         if self.movement == "width": 

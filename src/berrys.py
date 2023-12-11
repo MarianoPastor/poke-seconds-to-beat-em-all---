@@ -1,6 +1,5 @@
 import pygame
 from constants import *
-from random import random
 
 
 class Berry(pygame.sprite.Sprite):

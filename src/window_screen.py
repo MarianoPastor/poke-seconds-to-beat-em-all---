@@ -16,9 +16,14 @@ class WindowScreen(pygame.sprite.Sprite):
         self.volume_correction = 0 
         self.fx_correction = 0 
         self.fx_float = 0
-        self.flag_level_2 = True
-        self.flag_level_3 = True
+        
+        self.flag_level_2 = False
+        self.flag_level_3 = False
 
+        self.time_1 = 0
+        self.time_2 = 0
+        self.time_3 = 0
+        
         self.second_running = 20
 
         self.screen = screen
@@ -35,7 +40,9 @@ class WindowScreen(pygame.sprite.Sprite):
         self.enemy_groups = pygame.sprite.Group() 
         self.platforms_group = pygame.sprite.Group()  
         self.energy_ball_group = pygame.sprite.Group() 
+        self.enemy_attack = pygame.sprite.Group() 
         background_sprite = pygame.sprite.Sprite()
+        self.boss_group = pygame.sprite.Sprite()
         
         self.background_path = background_path
         self.clock = pygame.time.Clock()

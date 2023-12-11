@@ -5,9 +5,12 @@ from volume import Volume
 
 
 class PlayableCharacter(Character):
-    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump):
+    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump,tunder_rock,leaf_rock,water_rock,fire_rock):
         super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y,power_jump)
-        self.rocks = {"tunder" : False, "water" : False,"leaf" : False,"fire" : False}
+        self.tunder_rock = tunder_rock
+        self.water_rock = water_rock
+        self.leaf_rock = leaf_rock
+        self.fire_rock = fire_rock
         self.correction_of_directory_moves_r_l_a_i()
         
 
@@ -34,29 +37,29 @@ class PlayableCharacter(Character):
         else:
             self.gravity = True
             self.movement_image = self.dictionary_surfaces["idle"]
-
         
+
     def attack(self, keys):
-        if self.rocks["tunder"] or self.rocks["water"] or self.rocks["leaf"] or self.rocks["fire"]:
+        if self.tunder_rock or self.water_rock or self.fire_rock or self.leaf_rock:
             if keys[pygame.K_a]:
+                self.energy_ball_flag = True
+                Volume.sound_fx(SHOOT_SOUND, fx_volume_variable)
                 self.direction_attack = "left"
                 self.movement_image = self.dictionary_surfaces["attack"]
-                Volume.sound_fx(SHOOT_SOUND, VOLUME)
-                self.energy_ball_flag = True
-                self.rocks["tunder"] = False
-                self.rocks["water"] = False
-                self.rocks["leaf"] = False
-                self.rocks["fire"] = False
+                self.tunder_rock = False
+                self.water_rock = False
+                self.leaf_rock = False
+                self.fire_rock = False
             elif keys[pygame.K_d]:
+                self.energy_ball_flag = True
+                Volume.sound_fx(SHOOT_SOUND, fx_volume_variable)
                 self.direction_attack = "right"
                 self.movement_image = self.dictionary_surfaces["attack"]
-                Volume.sound_fx(SHOOT_SOUND, VOLUME)
-                self.energy_ball_flag = True
-                self.rocks["tunder"] = False
-                self.rocks["water"] = False
-                self.rocks["leaf"] = False
-                self.rocks["fire"] = False
-                
+                self.tunder_rock = False
+                self.water_rock = False
+                self.leaf_rock = False
+                self.fire_rock = False
+               
             
     def update(self) -> None:
         keys = pygame.key.get_pressed()

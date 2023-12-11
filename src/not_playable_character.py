@@ -3,9 +3,12 @@ from constants import *
 from character import Character
 
 class NPC(Character):
-    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump, movement):
+    def __init__(self, sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump, movement,fire_rock_deb,leaf_rock_deb,water_rock_deb,tunder_rock_deb):
         super().__init__(sprite_groups, image_surface, life, speed, sound_attack, sound_damage, sound_life_gain, size, center_x, center_y, power_jump)
-        self.rock = False
+        self.fire_rock = fire_rock_deb
+        self.leaf_rock = leaf_rock_deb
+        self.water_rock = water_rock_deb
+        self.tunder_rock = tunder_rock_deb
         self.movement_direction = "left"
         self.movement = movement
         self.correction_of_directory_moves_left_right()
@@ -29,7 +32,9 @@ class NPC(Character):
         elif not collisions and not player.damage_flag: 
             player.damage_flag = True
 
+
     def update(self):
         super().update()
         self.left_right_moves()
+       
         

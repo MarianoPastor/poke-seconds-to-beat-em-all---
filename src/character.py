@@ -1,7 +1,6 @@
 import pygame
 from constants import *
-from volume import Volume
-import window_screen
+
 
 class Character(pygame.sprite.Sprite):
     def __init__(self,sprite_groups, dictionary_surfaces, life, speed, sound_attack, sound_damage, sound_life_gain, character_size, center_x, center_y, power_jump):
@@ -26,14 +25,12 @@ class Character(pygame.sprite.Sprite):
         self.time_update = pygame.time.get_ticks()
         self.time_frames = TIME_FRAME_CHANGE
         
+        
 
         self.all_sprites_group = pygame.sprite.Group()
-        self.platforms_group = pygame.sprite.Group()
         self.enemy_groups = pygame.sprite.Group()
         self.energy_ball_group = pygame.sprite.Group()
-        self.buttons_group = pygame.sprite.Group()
-        self.berry_group = pygame.sprite.Group()
-        self.rocks_group =pygame.sprite.Group()
+       
         
     
     def falling(self):
@@ -50,10 +47,6 @@ class Character(pygame.sprite.Sprite):
         if time_now - self.time_update >= self.time_frames:
             self.change_frame()
             self.time_update = time_now
-
-    def damaged(self):
-        Volume.sound_fx(DAMAGE_SOUND,window_screen.WindowScreen.fx_float)
-        self.life -= 0
      
     def sticker_dictionary(self, path, key1, cuant1, key2=None, cuant2=None, key3=None, cuant3=None):
         dictionary_moves = {}
@@ -75,11 +68,6 @@ class Character(pygame.sprite.Sprite):
                 list_for_keys.append(image)
             dictionary_moves[key3] = list_for_keys
         return dictionary_moves
-    
-    def mask_collide(self, sprite2):
-        # Verifica la colisión de máscaras entre dos sprites
-        return self.mask_image.overlap(sprite2.mask_image, (sprite2.rect.x - self.rect.x, sprite2.rect.y - self.rect.y)) is not None
-
 
     def change_frame(self):
         self.frame += 1
@@ -97,7 +85,7 @@ class Character(pygame.sprite.Sprite):
             if not "attack" in self.dictionary_surfaces:
                 self.dictionary_surfaces["attack"] = self.dictionary_surfaces["idle"]
             if not "idle" in self.dictionary_surfaces:
-                self.dictionary_surfaces["idle"] = self.dictionary_surfaces["attack"]
+                self.dictionary_surfaces["idle"] = self.dictionary_surfaces["left"]
         except:
             self.dictionary_surfaces["right"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]
             self.dictionary_surfaces["left"] = [pygame.Surface(SIZE_PLAYER,).fill(BLACK)]

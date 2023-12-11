@@ -7,15 +7,13 @@ from buttom import Button
 class Volume(WindowScreen):
     def __init__(self,sprite_groups,music_path, volume_float, background_path,screen) -> None:   
         super().__init__(sprite_groups,music_path, volume_float, background_path,screen=screen)     
-        
         self.back = Button([self.all_sprites_group],"back",None,40,YELLOW,None,WIDTH-100,50,screen=self.screen)
+    
         self.volume_on = Button([self.all_sprites_group],"Set volume no",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-200,screen=self.screen)
         self.volume_off = Button([self.all_sprites_group],"Set volume off",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-150,screen=self.screen)
         self.volume_up = Button([self.all_sprites_group],"Set volume up",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-100,screen=self.screen)
         self.volume_down = Button([self.all_sprites_group],"Set volume down",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2-50,screen=self.screen)
-        #self.FX_up = Button([self.all_sprites_group],"Set FX_volume up",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+50,screen=self.screen)
-        #self.FX_down = Button([self.all_sprites_group],"Set FX_volume down",None,40,PURPLE,YELLOW,WIDTH/2,HEIGHT/2+200,screen=self.screen)
-       
+    
 
     def button_logic(self):
         if self.back.pressed_button():
@@ -35,7 +33,7 @@ class Volume(WindowScreen):
             current_volume = pygame.mixer.music.get_volume()
             new_volume = current_volume - 0.02
             pygame.mixer.music.set_volume(new_volume)
-
+       
        
 
     def load_music(path: str, volume: float= VOLUME)->None:

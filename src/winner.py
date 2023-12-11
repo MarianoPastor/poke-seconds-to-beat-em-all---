@@ -19,6 +19,7 @@ class Win(WindowScreen):
             self.active_bucle = False
             self.kill()
             
+            
 
     def update(self):
         super().update()

@@ -1,4 +1,3 @@
-import pygame
 from constants import *
 from window_screen import WindowScreen
 from buttom import Button

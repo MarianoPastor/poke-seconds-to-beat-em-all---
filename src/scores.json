@@ -1,3 +1,3 @@
-[{"total_time":10.20,"level_1_time":1.00,"level_2_time":3.00,"level_3_time":6.20,"name":"Ash"},
-{"total_time":6.00,"level_1_time":3.00,"level_2_time":2.00,"level_3_time":1.00,"name":"Red"},
-{"total_time":5.00,"level_1_time":1.00,"level_2_time":1.00,"level_3_time":3.00,"name":"Blue"}]
+[{"total_time":10.20,"level_1_time":1.00,"level_2_time":3.00,"level_3_time":6.20,"name":"Ash","total_lifes":6},
+{"total_time":6.00,"level_1_time":3.00,"level_2_time":2.00,"level_3_time":1.00,"name":"Red","total_lifes":9},
+{"total_time":5.00,"level_1_time":1.00,"level_2_time":1.00,"level_3_time":3.00,"name":"Blue","total_lifes":10}]

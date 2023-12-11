@@ -10,7 +10,7 @@ from volume import Volume
 
 
 class InitialScreen(WindowScreen):
-    def __init__(self,sprite_groups,music_path, volume_float, background_path, screen) -> None:   
+    def __init__(self,sprite_groups,music_path, volume_float, background_path,screen,data_player_score) -> None:   
         super().__init__(sprite_groups,music_path, volume_float, background_path, screen)  
         
         self.name_bottom = Button([self.all_sprites_group],"POKE-SECONDS!",None,45,RED,YELLOW,WIDTH/2,20,screen=self.screen)
@@ -19,6 +19,7 @@ class InitialScreen(WindowScreen):
         self.controls = Button([self.all_sprites_group],"Controls",None,40,YELLOW,BLACK,100,100,screen=self.screen)
         self.volume_botton = Button([self.all_sprites_group],"Sounds",None,40,YELLOW,BLACK,100,200,screen=self.screen)
         self.back_sound = Volume.load_music(self.music_path,self.volume_float)
+        self.data_player_score = data_player_score
         
     def button_logic(self):   
         if self.start_botton.pressed_button():
