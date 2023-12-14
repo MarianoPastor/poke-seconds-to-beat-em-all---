@@ -30,18 +30,7 @@ class Level3(LevelsWindows):
         self.second_running = TIME_FOR_LEVEL_3
         self.data_player = high_scores.HighScores.json_load(self,data_path=DATA_PLAYER_JSON)
 
-    def gravity_invertion(self): 
-        if self.boss.rect.left <= WIDTH / 2:
-            self.boss.count -= 1    
-        if self.boss.inverse_gravity:
-            self.player.gravity = False
-            self.player.jumping = False
-            self.player.rect.top -= self.boss.speed 
-            if self.player.rect.top <= 10:
-                self.player.rect.top = 10
-        if self.boss.count == 0:
-            self.boss.inverse_gravity != self.boss.inverse_gravity
-            self.boss.count = random.randint(2,3)
+    
         
     
     def best_time(self):
@@ -59,6 +48,7 @@ class Level3(LevelsWindows):
             self.screen_seen.run_game()
             print(self.data_player)
             self.data_player[0]["level_3_time"] = self.time_3
+            self.data_player[0]["total_time"] = self.data_player[0]["total_time"] + self.time_3
             self.data_player[0]["total_lifes"] = self.player.life + self.data_player[0]["total_lifes"]
             print(self.data_player)
             high_scores.HighScores.json_dump(json_path=DATA_PLAYER_JSON,data=self.data_player)
@@ -68,14 +58,13 @@ class Level3(LevelsWindows):
         collisions = pygame.sprite.spritecollide(self.boss, self.energy_ball_group,dokill=False)
         if collisions and not self.boss.inmortality: 
             self.flag_boss = False     
-            self.kill()
-       
+            self.boss.kill()
+
 
     def update(self):
         super().update()
         self.level_logic()
         self.fireball_event(self.npc_3_3)
         Boss.boss_collide_player(self=self.boss,player=self.player)
-        self.gravity_invertion()
         self.energy_collide_boss()
         

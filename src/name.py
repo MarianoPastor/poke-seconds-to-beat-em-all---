@@ -30,6 +30,3 @@ class Name:
             self.screen.blit(text_surface, rect)
 
             pygame.display.flip()
-
-
-

@@ -10,17 +10,6 @@ class Playing:
         pygame.init()
 
         self.all_sprites_group = pygame.sprite.Group()
-        # self.background_group = pygame.sprite.Group()
-        # self.mouse_group = pygame.sprite.Group()
-        # self.rocks_group = pygame.sprite.Group()
-        # self.level_1_group = pygame.sprite.Group()
-        # self.level_2_group = pygame.sprite.Group()
-        # self.level_3_group = pygame.sprite.Group()     
-        # self.berry_group = pygame.sprite.Group()  
-        # self.enemy_groups = pygame.sprite.Group() 
-        # self.platforms_group = pygame.sprite.Group()  
-        # self.energy_ball_group = pygame.sprite.Group() 
-        # self.background_sprite = pygame.sprite.Sprite()
         
         pygame.display.set_caption("Poke-Seconds Beat em up!!!.")
         pygame.display.set_icon(pygame.image.load(POKEBALL_IMAGE))

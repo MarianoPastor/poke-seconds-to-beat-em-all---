@@ -17,7 +17,7 @@ class HighScores(WindowScreen):
         self.bubble_sort_by_total_time()
         self.json_data.append(self.data_player[0])
         self.bubble_sort_by_total_time()
-        self.json_dump(self.json_path,self.json_data)
+        self.json_dump_final()
         
         
         
@@ -38,12 +38,15 @@ class HighScores(WindowScreen):
         with open(json_path, 'w') as archive:
             json.dump(data, archive)
 
+    def json_dump_final(self):
+        with open(self.json_path, 'w') as archive:
+            json.dump(self.json_data, archive)
 
     def bubble_sort_by_total_time(self):
         n = len(self.json_data)
         for i in range(n - 1):
             for j in range(0, n - i - 1):
-                if self.json_data[j]["total_time"] < self.json_data[j + 1]["total_time"]:
+                if self.json_data[j]["total_time"] > self.json_data[j + 1]["total_time"]:
                     self.json_data[j], self.json_data[j + 1] = self.json_data[j + 1], self.json_data[j]
         self.json_data[:2]
 

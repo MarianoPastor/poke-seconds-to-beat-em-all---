@@ -45,6 +45,7 @@ class Level2(LevelsWindows):
             self.screen_seen.run_game()
             print( self.data_player)
             self.data_player[0]["level_2_time"] = self.time_2
+            self.data_player[0]["total_time"] = self.data_player[0]["total_time"] + self.time_2
             self.data_player[0]["total_lifes"] = self.player.life + self.data_player[0]["total_lifes"]
             self.data_player[1]["level_flag_3"] = True
             print( self.data_player)

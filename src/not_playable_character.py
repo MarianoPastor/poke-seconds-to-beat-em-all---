@@ -36,5 +36,3 @@ class NPC(Character):
     def update(self):
         super().update()
         self.left_right_moves()
-       
-        

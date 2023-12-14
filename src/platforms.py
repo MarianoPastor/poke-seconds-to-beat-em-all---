@@ -42,4 +42,3 @@ class Platform(pygame.sprite.Sprite):
 
     def update(self) -> None:
         self.platform_height_or_width_moves()
-        
