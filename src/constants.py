@@ -1,7 +1,7 @@
 import os,pygame
 
 #screen
-SCREEN_TUPLE = (1000, 700)
+SCREEN_TUPLE = (900, 600)
 WIDTH, HEIGHT = SCREEN_TUPLE
 
 #time, text and more
